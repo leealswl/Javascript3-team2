@@ -1,1 +1,11 @@
-@import "detail.css"
+
+
+/* screens */
+@import './login.css';
+@import "main.css";
+@import "detail.css";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
