@@ -1,6 +1,9 @@
-/* screens */
-@import "main.css";
 
+/* screens */
+@import './login.css';
+@import "main.css";
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
