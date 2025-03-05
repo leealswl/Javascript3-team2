@@ -15,62 +15,42 @@ const callAPI = async() => {
       }
     };
     callAPI();
-// 배열그룹화
-const chunkArray = (array, chunkSize) => {
-    const chunks = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-        chunks.push(array.slice(i, i + chunkSize));
-    }
-    return chunks;
-    };   
 
-const render =()=> {
-    const chunks = chunkArray(gameList, 5);
-    const gameHTML = chunks.map((chunk, index) => `
-    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+// 배열을 일정 크기(chunkSize)로 그룹화하는 함수
+const chunkArray = (array, chunkSize) => {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
+
+const render = () => {
+  const chunks = chunkArray(gameList, 5);
+  const gameHTML = chunks
+    .map(
+      (chunk, index) => `
+    <div class="carousel-item ${index === 0 ? "active" : ""}">
       <div class="d-flex justify-content-around">
-        ${chunk.map(item => `
+        ${chunk
+          .map(
+            (item) => `
           <div class="game-card">
             <img src="${item.background_image}" class="img-fluid game-thumbnail">
             <p class="mt-2">${item.name}</p>
           </div>
-        `).join('')}
+        `
+          )
+          .join("")}
       </div>
     </div>
-  `).join("");
+  `
+    )
+    .join("");
 
-  document.getElementById('game-list').innerHTML = gameHTML;
+  document.getElementById("game-list").innerHTML = gameHTML;
+};
 
-  // 드래그로직
-const gameCards = document.querySelectorAll('.game-card');
-    gameCards.forEach(card => {
-      card.addEventListener('dragstart', (event) => {
-        // 드래그할 때 카드의 HTML을 dataTransfer에 저장
-        event.dataTransfer.setData('text/html', card.outerHTML);
-      });
-    });
-    };
-    document.addEventListener('DOMContentLoaded', () => {
-      const dropZone = document.getElementById('drop-zone');
-      dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        dropZone.classList.add('drop-zone-active');
-      });
-      dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('drop-zone-active');
-      });
-
-      dropZone.addEventListener('drop', (event) => {
-        event.preventDefault();
-        dropZone.classList.remove('drop-zone-active');
-        // 저장된 게임 카드 HTML을 가져와서 dropZone에 추가
-        const gameCardHTML = event.dataTransfer.getData('text/html');
-        // 만약 기존 내용이 있다면 초기화 후 추가하거나 append 처리
-        dropZone.innerHTML = gameCardHTML;
-      });
-    });
-
-// 여기 
 const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
