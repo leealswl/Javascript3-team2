@@ -108,14 +108,13 @@ const renderBanner = () => {
   }
   subHTML = top5
     .map(
-      (
-        game
-      ) => ` <div class="main-banner__sub-area__item" onclick="changeBanner(${game.id}, this)">
-              <img
-                src=${game.background_image}
-              />
-              <span>${game.name}</span>
-            </div>`
+      (game, index) => `
+      <div class="main-banner__sub-area__item ${index === 0 ? "active" : ""}" 
+           onclick="manualChangeBanner(${game.id}, ${index}, this)">
+        <img src=${game.background_image} />
+        <span>${game.name}</span>
+      </div>
+    `
     )
     .join("");
   document.querySelector(".main-banner__sub-area").innerHTML = subHTML;
