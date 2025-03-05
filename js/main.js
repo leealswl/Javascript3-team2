@@ -55,6 +55,8 @@ const render = () => {
 const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
+let currentIndex = 0;
+let autoSlideInterval;
 
 const getGameData = async () => {
   const url =
@@ -63,14 +65,38 @@ const getGameData = async () => {
   const response = await fetch(url);
   const data = await response.json();
   games = data.results;
-  console.log("ddd", data);
-  console.log("gggg", games);
+  // console.log("ddd", data);
+  // console.log("gggg", games);
   renderBanner();
 };
 getGameData();
 
+const changeBanner = async (id, element) => {
+  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+  const response = await fetch(url);
+  const data = await response.json();
+  document.querySelector(
+    ".main-banner__banner-img-area"
+  ).innerHTML = `<img src=${data.background_image}>`;
+
+  // 기존 active 클랫흐가 적용된 모든 요소에서 active 제거
+  document
+    .querySelectorAll(".main-banner__sub-area__item")
+    .forEach((item) => item.classList.remove("active"));
+
+  // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
+  if (element) {
+    element.classList.add("active");
+  } else {
+    document
+      .querySelector(".main-banner__sub-area__item")
+      [currentIndex].classList.add("active");
+  }
+};
+
 const renderBanner = () => {
   let bannerHTML = ``;
+
   bannerHTML = `<img src=${games[0].background_image} />`;
   document.querySelector(".main-banner__banner-img-area").innerHTML =
     bannerHTML;
@@ -82,7 +108,9 @@ const renderBanner = () => {
   }
   subHTML = top5
     .map(
-      (game) => ` <div class="main-banner__sub-area__item">
+      (
+        game
+      ) => ` <div class="main-banner__sub-area__item" onclick="changeBanner(${game.id}, this)">
               <img
                 src=${game.background_image}
               />
@@ -91,14 +119,34 @@ const renderBanner = () => {
     )
     .join("");
   document.querySelector(".main-banner__sub-area").innerHTML = subHTML;
+
+  startAutoSlide(); // 페이지 로드 후 자동 슬라이드 시작
 };
 
-const getGameTrailer = async () => {
-  let gameId = "";
-  const url = new URL(
-    `https://api.rawg.io/api/games/${gameId}/movies?key=${API_KEY}`
+// ✅ 수동 클릭 시 자동 슬라이드 리셋
+const manualChangeBanner = (id, index, element) => {
+  currentIndex = index; // 클릭한 인덱스로 업데이트
+  changeBanner(id, element);
+  restartAutoSlide(); // 수동 클릭 시 자동 슬라이드 재시작
+};
+
+// ✅ 자동 슬라이드 기능
+const autoSlide = () => {
+  currentIndex = (currentIndex + 1) % 5; // 0~4 사이에서 순환
+  let nextGame = games[currentIndex];
+  changeBanner(
+    nextGame.id,
+    document.querySelectorAll(".main-banner__sub-area__item")[currentIndex]
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("movie", data);
+};
+
+// ✅ 자동 슬라이드 시작
+const startAutoSlide = () => {
+  autoSlideInterval = setInterval(autoSlide, 3000); // 3초마다 실행
+};
+
+// ✅ 수동 클릭 시 자동 슬라이드 리셋
+const restartAutoSlide = () => {
+  clearInterval(autoSlideInterval); // 기존 자동 슬라이드 정지
+  startAutoSlide(); // 새로운 자동 슬라이드 시작
 };
