@@ -1,22 +1,21 @@
-const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
-let gameList = [];
+const API_KEY1=`9487a4535e60442eb301ed9ec7f83dfa`;
+let gameList=[];
 
-const callAPI = async () => {
-  try {
-    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}`);
-    let response = await fetch(url);
-    let data = await response.json();
-    gameList = data.results;
-    render();
-    console.log("게임 데이터:", gameList);
-  } catch (error) {
-    console.error("API 요청 실패:", error);
-    document.getElementById(
-      "game-list"
-    ).innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
-  }
-};
-callAPI();
+const callAPI = async() => {
+    try {
+        let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=40`);
+        let response = await fetch(url);
+        let data = await response.json();
+        gameList = data.results;
+        render();
+        console.log("게임 데이터:", gameList);
+      } catch (error) {
+        console.error("API 요청 실패:", error);
+        document.getElementById('game-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+      }
+    };
+    callAPI();
+
 // 배열을 일정 크기(chunkSize)로 그룹화하는 함수
 const chunkArray = (array, chunkSize) => {
   const chunks = [];
