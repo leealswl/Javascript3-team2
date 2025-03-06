@@ -69,7 +69,7 @@ const getGameData = async () => {
   const data = await response.json();
   games = data.results;
   // console.log("ddd", data);
-  // console.log("gggg", games);
+  console.log("gggg", games);
   renderBanner();
 };
 getGameData();
@@ -80,7 +80,7 @@ const changeBanner = async (id, element) => {
   const data = await response.json();
   document.querySelector(
     ".main-banner__banner-img-area"
-  ).innerHTML = `<img src=${data.background_image}>`;
+  ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
 
   // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
   document
@@ -158,4 +158,31 @@ const startAutoSlide = () => {
 const restartAutoSlide = () => {
   clearInterval(autoSlideInterval); // 기존 자동 슬라이드 정지
   startAutoSlide(); // 새로운 자동 슬라이드 시작
+};
+
+const gotoDetailPage = (id) => {
+  console.log("gameId", id);
+  window.location.href = `detail.html?id=${id}`;
+};
+
+const getSearchGames = async (event) => {
+  event.preventDefault();
+  const input = document.getElementById("search").value.toLowerCase().trim();
+  if (!input) {
+    console.log("검색어를 입력하세요.");
+    return;
+  }
+  console.log("input", input);
+  const url = `https://api.rawg.io/api/games?search=${encodeURIComponent(
+    input
+  )}&key=${API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("검색 요청 실패");
+    const data = await response.json();
+    console.log("search-data", data);
+  } catch (error) {
+    console.error("API 호출 중 오류 발생:", error);
+  }
 };

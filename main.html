@@ -47,7 +47,9 @@
       <div>
         <!-- 본문 안 네브바 (검색, 카테고리 등) -->
         <nav class="main-navigation-bar">
-          <input type="text" placeholder="Search store" />
+          <form onsubmit="getSearchGames(event)">
+            <input id="search" type="text" placeholder="Search store" />
+          </form>
           <span>Discover</span>
           <span>Browse</span>
           <span>News</span>
