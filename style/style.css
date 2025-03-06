@@ -1,6 +1,5 @@
-@import "reset.css";
-
 /* screens */
+@import "reset.css";
 @import "./login.css";
 @import "main.css";
 @import "detail.css";
