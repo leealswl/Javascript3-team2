@@ -3,7 +3,7 @@ let gameList=[];
 
 const callAPI = async() => {
     try {
-        let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=40`);
+        let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=20`);
         let response = await fetch(url);
         let data = await response.json();
         gameList = data.results;
@@ -16,7 +16,7 @@ const callAPI = async() => {
     };
     callAPI();
 
-// 배열을 일정 크기(chunkSize)로 그룹화하는 함수
+// 배열 그룹화하는 함수
 const chunkArray = (array, chunkSize) => {
   const chunks = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -24,42 +24,52 @@ const chunkArray = (array, chunkSize) => {
   }
   return chunks;
 };
-
 const render = () => {
   const chunks = chunkArray(gameList, 5);
-  const gameHTML = chunks
-    .map(
-      (chunk, index) => `
-    <div class="carousel-item ${index === 0 ? "active" : ""}">
-      <div class="d-flex justify-content-around">
-        ${chunk
-          .map(
-            (item) => `
-          <div class="game-card">
-            <img src="${item.background_image}" class="img-fluid game-thumbnail">
-            <p class="mt-2">${item.name}</p>
-          </div>
-        `
-          )
-          .join("")}
-      </div>
-    </div>
-  `
-    )
-    .join("");
-
+  const gameHTML = chunks.map(chunk => `
+    <div class="game-container">
+      ${chunk.map(item => `
+        <div class="game-card" draggable="true">
+          <img src="${item.background_image}" class="img-fluid game-thumbnail">
+          <p class="game-title">${item.name}</p>
+        </div>`).join("")}
+    </div>`).join("");
   document.getElementById("game-list").innerHTML = gameHTML;
-  // 드래그로직
-const gameCards = document.querySelectorAll('.game-card');
-gameCards.forEach(card => {
-  card.addEventListener('dragstart', (event) => {
-    // 드래그할 때 카드의 HTML을 dataTransfer에 저장
-    event.dataTransfer.setData('text/html', card.outerHTML);
+  
+  // 각 게임 카드에 드래그 시작 이벤트 부착
+  const gameCards = document.querySelectorAll('.game-card');
+  gameCards.forEach(card => {
+    card.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('text/html', card.outerHTML);
+    });
   });
-});
 };
+
+let hasDroppedGame = false; // 게임이 드롭되었는지 여부
+let recommendedShown = false; // 추천 게임이 표시되었는지 여부
+
+const recommendRandomGame = () => {
+  if (gameList && gameList.length > 0) {
+    const randomIndex = Math.floor(Math.random() * gameList.length);
+    const randomGame = gameList[randomIndex];
+    const randomGameHTML = `
+      <div class="game-card">
+        <img src="${randomGame.background_image}" class="img-fluid game-thumbnail">
+        <p class="game-title">${randomGame.name}</p>
+      </div>
+    `;
+    const dropZone = document.getElementById('drop-zone');
+    // 드래그 영역의 기존 데이터를 제거 후 추천 게임만 표시
+    dropZone.innerHTML = randomGameHTML;
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+  render(); 
+
   const dropZone = document.getElementById('drop-zone');
+  const recommendBtn = document.getElementById('recommend-btn');
+
   dropZone.addEventListener('dragover', (event) => {
     event.preventDefault();
     dropZone.classList.add('drop-zone-active');
@@ -67,16 +77,31 @@ document.addEventListener('DOMContentLoaded', () => {
   dropZone.addEventListener('dragleave', () => {
     dropZone.classList.remove('drop-zone-active');
   });
-
   dropZone.addEventListener('drop', (event) => {
     event.preventDefault();
     dropZone.classList.remove('drop-zone-active');
-    // 저장된 게임 카드 HTML을 가져와서 dropZone에 추가
+    // 드래그한 게임 카드 HTML 가져오기
     const gameCardHTML = event.dataTransfer.getData('text/html');
-    // 만약 기존 내용이 있다면 초기화 후 추가하거나 append 처리
-    dropZone.innerHTML = gameCardHTML;
+    dropZone.innerHTML += gameCardHTML;
+    hasDroppedGame = true; // 드랍되었음을 표시
   });
+
+   // 추천 버튼 클릭 시: 게임이 드롭된 경우에만 추천 진행
+   if (recommendBtn) {
+    recommendBtn.addEventListener('click', () => {
+      // 드래그해서 게임이 drop-zone에 없으면 아무 동작도 하지 않음
+      if (!hasDroppedGame) return;
+      if (!recommendedShown) {
+        // 드래그 영역의 기존 데이터 제거 후 추천 게임 추가
+        recommendRandomGame();
+        recommendedShown = true;
+        // 버튼 비활성화하여 추가 추천 방지
+        recommendBtn.disabled = true;
+      }
+    });
+  }
 });
+
 // 여기 
 
 const API_KEY = "8150b00e2a1f40e486076b6650624997";
