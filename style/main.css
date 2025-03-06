@@ -10,23 +10,9 @@
   height: 200px;
   object-fit: cover;
 }
-.carousel {
-  max-width: 1500px;
-  margin: 0 auto;
-}
-.carousel-inner {
-  overflow: hidden;
-}
-
-/* 슬라이드 내부 flex 컨테이너: 카드 5개가 균등하게 분포 */
-.carousel-item > .d-flex {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
 .game-card {
-  flex: 0 0 20%;
-  max-width: 20%;
+  flex: 20%;
+  max-width: 50%;
   text-align: center;
   padding: 10px;
   box-sizing: border-box;
@@ -34,12 +20,18 @@
 
 /* 드롭 영역 스타일 */
 .drop-zone {
+  width: 650px;
+  height: 300px;
   border: 2px dashed #ccc;
-  padding: 20px;
-  margin-top: 20px;
-  min-height: 150px;
-  text-align: center;
-  transition: background-color 0.3s, border-color 0.3s;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.drop-zone-wrapper {
+  display: flex;
+  justify-content: center;
 }
 /* 드래그 오버 시 드롭 영역 강조 */
 .drop-zone-active {
