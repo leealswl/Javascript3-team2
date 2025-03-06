@@ -10,10 +10,9 @@ body{
     font-weight: bold;
 }
 
-.container{
+.upper-side{
     display: flex;
-    /* justify-content: space-around; */
-    flex-direction: column;
+    justify-content: space-around;
 }
 
 .detail-menu{
@@ -32,9 +31,9 @@ body{
 #under-line{
     height: 1.5px;
     position: absolute;
-    width: 80px;
+    width: 70px;
     left: 0px;
-    top: 70px;
+    top: 24px;
     padding: 0;
     transition: 0.5s;
     background-color: rgb(29, 198, 254);
@@ -49,6 +48,9 @@ body{
 
 .slide-button{
     display: none;
+    position: relative;
+    bottom: 175px;
+
 }
 
 .detail-foto-slide:hover{
@@ -61,6 +63,10 @@ body{
     max-width: 600px;
     display: flex;
     justify-content: space-around;
+}
+
+#game-img{
+    height: 450px;
 }
 
 .game-image{
@@ -85,10 +91,61 @@ body{
     display: none;
 }
 
+
 @media (max-width:500px){
     .pagination-button{
         display: block;
     }
+}
+
+.carousel-item img{
+    height: 400px;
+}
+
+.carousel-inner{
+    position: relative;
+}
+
+.carousel-item img{
+    width: 100%;
+    height: auto;
+}
+
+
+.change-page {
+    position: absolute;
+    top: 350px;
+    height: 100px;
+}
+
+.change-page img {
+    width: 150px;
+    height: 70px;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 150px;
+}
+
+.rating-display{
+    margin-left: .5em;
+}
+
+.star {
+    font-size: 15px;
+    color: gold;
+    margin-right: 3px;
+}
+.half {
+    color: gold;  /* 반 개의 별도 같은 색 */
+}
+.empty {
+    color: gold;
+}
+
+.tags{
+    color: white;
+    margin-left: 5px;
 }
 
 
