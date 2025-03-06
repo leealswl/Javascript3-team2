@@ -88,6 +88,13 @@
       background-color: #28282c;
       transition: 0.3s ease-in-out;
     }
+    img {
+      border-radius: 10px;
+    }
+  }
+  .clicked {
+    transform: scale(1.5);
+    transition: transform 0.2s ease-in-out;
   }
 
   img {
@@ -97,6 +104,6 @@
   }
 }
 
-.active {
+.focus {
   background-color: #28282c;
 }

@@ -1,20 +1,24 @@
-const API_KEY1=`9487a4535e60442eb301ed9ec7f83dfa`;
-let gameList=[];
+const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
+let gameList = [];
 
-const callAPI = async() => {
-    try {
-        let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=40`);
-        let response = await fetch(url);
-        let data = await response.json();
-        gameList = data.results;
-        render();
-        console.log("게임 데이터:", gameList);
-      } catch (error) {
-        console.error("API 요청 실패:", error);
-        document.getElementById('game-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
-      }
-    };
-    callAPI();
+const callAPI = async () => {
+  try {
+    let url = new URL(
+      `https://api.rawg.io/api/games?key=${API_KEY1}&page_size=40`
+    );
+    let response = await fetch(url);
+    let data = await response.json();
+    gameList = data.results;
+    render();
+    console.log("게임 데이터:", gameList);
+  } catch (error) {
+    console.error("API 요청 실패:", error);
+    document.getElementById(
+      "game-list"
+    ).innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+  }
+};
+callAPI();
 
 // 배열을 일정 크기(chunkSize)로 그룹화하는 함수
 const chunkArray = (array, chunkSize) => {
@@ -78,18 +82,18 @@ const changeBanner = async (id, element) => {
     ".main-banner__banner-img-area"
   ).innerHTML = `<img src=${data.background_image}>`;
 
-  // 기존 active 클랫흐가 적용된 모든 요소에서 active 제거
+  // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
   document
     .querySelectorAll(".main-banner__sub-area__item")
-    .forEach((item) => item.classList.remove("active"));
+    .forEach((item) => item.classList.remove("focus"));
 
   // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
   if (element) {
-    element.classList.add("active");
+    element.classList.add("focus");
   } else {
     document
       .querySelector(".main-banner__sub-area__item")
-      [currentIndex].classList.add("active");
+      [currentIndex].classList.add("focus");
   }
 };
 
@@ -108,7 +112,7 @@ const renderBanner = () => {
   subHTML = top5
     .map(
       (game, index) => `
-      <div class="main-banner__sub-area__item ${index === 0 ? "active" : ""}" 
+      <div class="main-banner__sub-area__item ${index === 0 ? "focus" : ""}" 
            onclick="manualChangeBanner(${game.id}, ${index}, this)">
         <img src=${game.background_image} />
         <span>${game.name}</span>
@@ -126,6 +130,13 @@ const manualChangeBanner = (id, index, element) => {
   currentIndex = index; // 클릭한 인덱스로 업데이트
   changeBanner(id, element);
   restartAutoSlide(); // 수동 클릭 시 자동 슬라이드 재시작
+
+  // ✅ 클릭한 요소에 'clicked' 클래스 추가 후 일정 시간 뒤 제거
+  const img = element.querySelector("img");
+  img.classList.add("clicked");
+  setTimeout(() => {
+    img.classList.remove("clicked");
+  }, 300); // 0.2초 후 원래 크기로 복귀
 };
 
 // ✅ 자동 슬라이드 기능
