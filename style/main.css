@@ -1,9 +1,9 @@
 #game-sys {
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: black;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: black;
 }
 .game-thumbnail {
   width: 100%;
@@ -16,24 +16,9 @@
   text-align: center;
   padding: 10px;
   box-sizing: border-box;
-  overflow: hidden;
 }
-.game-card:hover {
-  cursor: pointer;
-}
-.game-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start; 
-  margin-bottom: 1rem;
-}
-.game-title {
-  margin-top: 0.5rem;
-  text-align: center;
-}
-.game-zone{
-  white-space: nowrap;
-}
+
+/* 드롭 영역 스타일 */
 .drop-zone {
   width: 650px;
   height: 300px;
@@ -48,12 +33,10 @@
   display: flex;
   justify-content: center;
 }
+/* 드래그 오버 시 드롭 영역 강조 */
 .drop-zone-active {
+  border-color: #007bff;
   background-color: #e9ecef;
-}
-
-.drop-box {
-  text-align: center;
 }
 /* 여기 */
 .main-container {
@@ -64,12 +47,14 @@
   padding: 0 10%;
 }
 
+/* 메인 배너 */
 .main-banner {
   display: flex;
   height: 50vh;
   margin-top: 1rem;
 }
 
+/* 배너 이미지 영역 */
 .main-banner__banner-img-area {
   width: 70%;
   height: 100%;
@@ -80,18 +65,37 @@
   }
 }
 
+/* 오른쪽 사이드 영역 */
 .main-banner__sub-area {
   width: 30%;
   height: 100%;
+  margin-left: 2%;
   .main-banner__sub-area__item {
     display: flex;
     align-items: center;
     padding: 2rem 1rem;
     height: 20%;
+    border-radius: 20px;
+    &:hover {
+      background-color: #28282c;
+      transition: 0.3s ease-in-out;
+    }
+    img {
+      border-radius: 10px;
+    }
   }
+  .clicked {
+    transform: scale(1.4);
+    transition: transform 0.3s ease-in-out;
+  }
+
   img {
     width: 15%;
     aspect-ratio: 1.5/2;
     margin-right: 2%;
   }
+}
+
+.focus {
+  background-color: #28282c;
 }
