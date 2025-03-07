@@ -1,9 +1,20 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
 
-const gameId = "4291"; // 게임 ID
+// const gameId = "4291"; // 게임 ID
+
+// URL에서 gameId 가져오기
+const getGameIdFromURL = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get("id");
+};
+
+// gameId 가져오기
+const gameId = getGameIdFromURL();
+console.log("게임 ID:", gameId);
+
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
 
-let gameData = [];
+// let gameData = [];
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
