@@ -135,14 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const dropZone = document.getElementById('drop-zone');
   const recommendBtn = document.getElementById('recommend-btn');
 
-  dropZone.addEventListener('dragover', (event) => {
+  dropZone.addEventListener("dragover", (event) => {
     event.preventDefault();
-    dropZone.classList.add('drop-zone-active');
+    dropZone.classList.add("drop-zone-active");
   });
-  dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('drop-zone-active');
+  dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("drop-zone-active");
   });
-  dropZone.addEventListener('drop', (event) => {
+  dropZone.addEventListener("drop", (event) => {
     event.preventDefault();
     if (hasDroppedGame) return;
     dropZone.classList.remove('drop-zone-active');
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// 여기 
+// 여기
 
 const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
@@ -280,6 +280,69 @@ const autoSlide = () => {
     nextGame.id,
     document.querySelectorAll(".main-banner__sub-area__item")[currentIndex]
   );
+};
+
+// ✅ 자동 슬라이드 시작
+const startAutoSlide = () => {
+  autoSlideInterval = setInterval(autoSlide, 3000); // 3초마다 실행
+};
+
+// ✅ 수동 클릭 시 자동 슬라이드 리셋
+const restartAutoSlide = () => {
+  clearInterval(autoSlideInterval); // 기존 자동 슬라이드 정지
+  startAutoSlide(); // 새로운 자동 슬라이드 시작
+};
+
+const gotoDetailPage = (id) => {
+  console.log("gameId", id);
+  window.location.href = `detail.html?id=${id}`;
+};
+
+const getSearchGames = async (event) => {
+  event.preventDefault();
+  let input = document.getElementById("search").value.toLowerCase().trim();
+  if (!input) {
+    console.log("검색어를 입력하세요.");
+    return;
+  }
+  console.log("input", input);
+  const url = `https://api.rawg.io/api/games?search=${encodeURIComponent(
+    input
+  )}&key=${API_KEY}`;
+
+  let games = [];
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("검색 요청 실패");
+    const data = await response.json();
+    games = data.results;
+    console.log("search-data", games);
+  } catch (error) {
+    console.error("API 호출 중 오류 발생:", error);
+    return;
+  }
+
+  let searchHTML = `
+    <section class="search-container container">
+      <div class="row">
+        ${games
+          .map(
+            (game) => `
+            <div class="search-result col-lg-3">
+              <img onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
+              <p>${game.name}</p>
+            </div>`
+          )
+          .join("")}
+      </div>
+    </section>`;
+
+  document.getElementById("search").value = "";
+  document.querySelector(".main-banner").innerHTML = searchHTML;
+
+  document.getElementById("game-sys").innerHTML = "";
+  document.getElementById("drag-zone").innerHTML = "";
 };
 
 // ✅ 자동 슬라이드 시작
