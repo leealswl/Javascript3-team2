@@ -7,14 +7,10 @@ const getGameIdFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
-
 // gameId 가져오기
 const gameId = getGameIdFromURL();
-console.log("게임 ID:", gameId);
 
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
-
-// let gameData = [];
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
@@ -255,4 +251,13 @@ const displayCreator = (creator) => {
 // 초기 데이터 요청
 fetchGameDetails(gameId);
 
-fetchGameDetails(gameId);
+async function getGameInfo() {
+  console.log("iiii", gameId);
+  const url = new URL(
+    `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("Info", data);
+}
+getGameInfo();

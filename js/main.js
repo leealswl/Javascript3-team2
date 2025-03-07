@@ -139,6 +139,7 @@ const changeBanner = async (id, element) => {
   const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
   const response = await fetch(url);
   const data = await response.json();
+  console.log("dddd", data);
   document.querySelector(
     ".main-banner__banner-img-area"
   ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
@@ -222,7 +223,6 @@ const restartAutoSlide = () => {
 };
 
 const gotoDetailPage = (id) => {
-  console.log("gameId", id);
   window.location.href = `detail.html?id=${id}`;
 };
 
