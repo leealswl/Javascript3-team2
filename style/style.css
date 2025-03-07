@@ -3,6 +3,7 @@
 @import "./login.css";
 @import "main.css";
 @import "detail.css";
+@import "index.css";
 
 * {
   margin: 0;

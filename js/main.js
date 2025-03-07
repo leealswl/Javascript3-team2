@@ -3,24 +3,22 @@ let gameList = [];
 
 const callAPI = async () => {
   try {
-    let url = new URL(
-      `https://api.rawg.io/api/games?key=${API_KEY1}&page_size=20`
-    );
+    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=20`);
     let response = await fetch(url);
     let data = await response.json();
     gameList = data.results;
-    render();
+    renderGameCarousel();
+    // 평점순 캐러셀: rating 내림차순 정렬 후 렌더링
+    const sortedByRating = [...gameList].sort((a, b) => b.rating - a.rating);
+    renderRatingCarousel(sortedByRating);
     console.log("게임 데이터:", gameList);
   } catch (error) {
     console.error("API 요청 실패:", error);
-    document.getElementById(
-      "game-list"
-    ).innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+    document.getElementById('game-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
   }
 };
 callAPI();
 
-// 배열 그룹화하는 함수
 const chunkArray = (array, chunkSize) => {
   const chunks = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -28,59 +26,114 @@ const chunkArray = (array, chunkSize) => {
   }
   return chunks;
 };
-const render = () => {
-  const chunks = chunkArray(gameList, 5);
-  const gameHTML = chunks
-    .map(
-      (chunk) => `
-    <div class="game-container">
-      ${chunk
-        .map(
-          (item) => `
-        <div class="game-card" draggable="true">
-          <img src="${item.background_image}" class="img-fluid game-thumbnail">
-          <p class="game-title">${item.name}</p>
-        </div>`
-        )
-        .join("")}
-    </div>`
-    )
-    .join("");
-  document.getElementById("game-list").innerHTML = gameHTML;
 
-  // 각 게임 카드에 드래그 시작 이벤트 부착
-  const gameCards = document.querySelectorAll(".game-card");
-  gameCards.forEach((card) => {
-    card.addEventListener("dragstart", (event) => {
-      event.dataTransfer.setData("text/html", card.outerHTML);
+// 기존 캐러셀 렌더링
+const renderGameCarousel = () => {
+  const chunks = chunkArray(gameList, 5);
+  const gameHTML = chunks.map((chunk, index) => `
+    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+      <div class="game-container">
+        ${chunk.map(item => `
+          <div class="game-card" draggable="true">
+            <a href="detail.html?id=${item.id}">
+              <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
+              <p class="game-title">${item.name}</p>
+            </a>
+          </div>
+        `).join('')}
+      </div>
+    </div>`).join('');
+  document.getElementById("game-list").innerHTML = gameHTML;
+  
+  // 드래그 이벤트 부착
+  const gameCards = document.querySelectorAll('.game-card');
+  gameCards.forEach(card => {
+    card.addEventListener('dragstart', (event) => {
+      if (hasDroppedGame) {
+        event.preventDefault();
+        return;
+      }
+      event.dataTransfer.setData('text/html', card.outerHTML);
     });
   });
 };
 
-let hasDroppedGame = false; // 게임이 드롭되었는지 여부
-let recommendedShown = false; // 추천 게임이 표시되었는지 여부
-
-const recommendRandomGame = () => {
-  if (gameList && gameList.length > 0) {
-    const randomIndex = Math.floor(Math.random() * gameList.length);
-    const randomGame = gameList[randomIndex];
-    const randomGameHTML = `
-      <div class="game-card">
-        <img src="${randomGame.background_image}" class="img-fluid game-thumbnail">
-        <p class="game-title">${randomGame.name}</p>
+// 평점순 캐러셀 렌더링 함수
+const renderRatingCarousel = (sortedGames) => {
+  const chunks = chunkArray(sortedGames, 5);
+  const ratingHTML = chunks.map((chunk, index) => `
+    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+      <div class="game-container">
+        ${chunk.map(item => `
+          <div class="game-card" draggable="true">
+            <a href="detail.html?id=${item.id}">
+              <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
+              <p class="game-title">${item.name}</p>
+              <p class="game-rating">Rating: ${item.rating}</p>
+            </a>
+          </div>
+        `).join('')}
       </div>
-    `;
-    const dropZone = document.getElementById("drop-zone");
-    // 드래그 영역의 기존 데이터를 제거 후 추천 게임만 표시
-    dropZone.innerHTML = randomGameHTML;
-  }
+    </div>
+  `).join('');
+  document.getElementById("rating-list").innerHTML = ratingHTML;
+  
+  // 평점 캐러셀의 드래그 이벤트
+  const ratingCards = document.querySelectorAll('#rating-list .game-card');
+  ratingCards.forEach(card => {
+    card.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('text/html', card.outerHTML);
+    });
+  });
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  render();
+let currentSlide = 0;        // 기존 캐러셀 슬라이드 인덱스
+let currentSlideRating = 0;  // 평점 캐러셀 슬라이드 인덱스
+let hasDroppedGame = false;  //처음 드랍값
+let recommendedShown = false;//처음 추천값
 
-  const dropZone = document.getElementById("drop-zone");
-  const recommendBtn = document.getElementById("recommend-btn");
+// 슬라이드 전환 함수
+const showSlide = (carouselId, index) => {
+  const slides = document.querySelectorAll(`#${carouselId} .carousel-item`);
+  if (index < 0 || index >= slides.length) return;
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+  return index;
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 기존 캐러셀 컨트롤 이벤트
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  prevBtn.addEventListener('click', () => {
+    const slides = document.querySelectorAll('#game-carousel .carousel-item');
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide('game-carousel', currentSlide);
+  });
+  nextBtn.addEventListener('click', () => {
+    const slides = document.querySelectorAll('#game-carousel .carousel-item');
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide('game-carousel', currentSlide);
+  });
+
+  // 평점 캐러셀 컨트롤 이벤트
+  const prevBtnRating = document.getElementById('prev-btn-rating');
+  const nextBtnRating = document.getElementById('next-btn-rating');
+  prevBtnRating.addEventListener('click', () => {
+    const slides = document.querySelectorAll('#rating-carousel .carousel-item');
+    currentSlideRating = (currentSlideRating - 1 + slides.length) % slides.length;
+    showSlide('rating-carousel', currentSlideRating);
+  });
+  nextBtnRating.addEventListener('click', () => {
+    const slides = document.querySelectorAll('#rating-carousel .carousel-item');
+    currentSlideRating = (currentSlideRating + 1) % slides.length;
+    showSlide('rating-carousel', currentSlideRating);
+  });
+
+  // 드롭존
+  const dropZone = document.getElementById('drop-zone');
+  const recommendBtn = document.getElementById('recommend-btn');
 
   dropZone.addEventListener("dragover", (event) => {
     event.preventDefault();
@@ -91,25 +144,44 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   dropZone.addEventListener("drop", (event) => {
     event.preventDefault();
-    dropZone.classList.remove("drop-zone-active");
-    // 드래그한 게임 카드 HTML 가져오기
-    const gameCardHTML = event.dataTransfer.getData("text/html");
-    dropZone.innerHTML += gameCardHTML;
-    hasDroppedGame = true; // 드랍되었음을 표시
+    if (hasDroppedGame) return;
+    dropZone.classList.remove('drop-zone-active');
+    const gameCardHTML = event.dataTransfer.getData('text/html');
+    dropZone.innerHTML = gameCardHTML;
+    hasDroppedGame = true;
   });
-
-  // 추천 버튼 클릭 시: 게임이 드롭된 경우에만 추천 진행
   if (recommendBtn) {
-    recommendBtn.addEventListener("click", () => {
-      // 드래그해서 게임이 drop-zone에 없으면 아무 동작도 하지 않음
+    recommendBtn.addEventListener('click', () => {
       if (!hasDroppedGame) return;
       if (!recommendedShown) {
-        // 드래그 영역의 기존 데이터 제거 후 추천 게임 추가
-        recommendRandomGame();
+        // 추천 버튼 기능 (예: 무작위 게임 카드 표시)
+        const randomIndex = Math.floor(Math.random() * gameList.length);
+        const randomGame = gameList[randomIndex];
+        const randomGameHTML = `
+          <div class="game-card">
+            <a href="detail.html?id=${randomGame.id}">
+              <img src="${randomGame.background_image}" class="game-thumbnail" alt="${randomGame.name}">
+              <p class="game-title">${randomGame.name}</p>
+              <p class="game-rating">Rating: ${randomGame.rating}</p>
+            </a>
+          </div>
+        `;
+        document.getElementById('drop-zone').innerHTML = randomGameHTML;
         recommendedShown = true;
-        // 버튼 비활성화하여 추가 추천 방지
         recommendBtn.disabled = true;
       }
+    });
+  }
+  
+  // 리셋 버튼 이벤트
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      document.getElementById('drop-zone').innerHTML = "";
+      hasDroppedGame = false;
+      recommendedShown = false;
+      document.getElementById('recommend-btn').disabled = false;
+      showSlide('game-carousel', 0);
     });
   }
 });
