@@ -228,7 +228,7 @@ const gotoDetailPage = (id) => {
 
 const getSearchGames = async (event) => {
   event.preventDefault();
-  const input = document.getElementById("search").value.toLowerCase().trim();
+  let input = document.getElementById("search").value.toLowerCase().trim();
   if (!input) {
     console.log("검색어를 입력하세요.");
     return;
@@ -238,12 +238,37 @@ const getSearchGames = async (event) => {
     input
   )}&key=${API_KEY}`;
 
+  let games = [];
+
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error("검색 요청 실패");
     const data = await response.json();
-    console.log("search-data", data);
+    games = data.results;
+    console.log("search-data", games);
   } catch (error) {
     console.error("API 호출 중 오류 발생:", error);
+    return;
   }
+
+  let searchHTML = `
+    <section class="search-container container">
+      <div class="row">
+        ${games
+          .map(
+            (game) => `
+            <div class="search-result col-lg-3">
+              <img onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
+              <p>${game.name}</p>
+            </div>`
+          )
+          .join("")}
+      </div>
+    </section>`;
+
+  document.getElementById("search").value = "";
+  document.querySelector(".main-banner").innerHTML = searchHTML;
+
+  document.getElementById("game-sys").innerHTML = "";
+  document.getElementById("drag-zone").innerHTML = "";
 };
