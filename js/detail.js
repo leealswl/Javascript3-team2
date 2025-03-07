@@ -10,11 +10,18 @@ const getGameIdFromURL = () => {
 
 // gameId 가져오기
 const gameId = getGameIdFromURL();
-console.log("게임 ID:", gameId);
+
+let gameData = []; // 게임 데이터를 저장할 변수
+let gameTags = []; // 해당 게임의 태그 데이터를 저장할 변수
+let publisherData = []; // 게임의 게시자 데이터를 저장할 변수
+let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
+let redditData = [];
+
 
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
 
 // let gameData = [];
+
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
@@ -57,10 +64,6 @@ const generateStars = () => {
   ratingElement.innerHTML = starsHTML;
 };
 
-let gameData = []; // 게임 데이터를 저장할 변수
-let gameTags = []; // 해당 게임의 태그 데이터를 저장할 변수
-let publisherData = []; // 게임의 게시자 데이터를 저장할 변수
-let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
 
 // 게임의 세부 정보와 태그를 받아오는 함수
 const fetchGameDetails = async (gameId) => {
@@ -79,6 +82,7 @@ const fetchGameDetails = async (gameId) => {
       publisherData = gameData.publishers[0];
     }
 
+
     // 게임의 크리에이터 정보를 가져옵니다.
     if (gameData.developers && gameData.developers.length > 0) {
       creatorData = gameData.developers[0];
@@ -91,6 +95,7 @@ const fetchGameDetails = async (gameId) => {
   } catch (error) {
     console.error("게임 정보와 태그를 가져오는 중 오류 발생:", error);
   }
+
 };
 
 const render = () => {
@@ -145,6 +150,8 @@ const render = () => {
   displayPublisher(publisherData);
   displayCreator(creatorData);
 };
+
+
 
 // 게임 세부 정보를 HTML에 표시하는 함수
 const displayGameDetails = (game) => {
@@ -252,7 +259,9 @@ const displayCreator = (creator) => {
   }
 };
 
-// 초기 데이터 요청
-fetchGameDetails(gameId);
+
+
+
 
 fetchGameDetails(gameId);
+
