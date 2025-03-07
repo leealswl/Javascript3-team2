@@ -1,12 +1,3 @@
-// URL에서 'id' 파라미터 읽기
-// const urlParams = new URLSearchParams(window.location.search);
-// const gameIdForMainHtml = urlParams.get('id');
-
-if (!gameIdForMainHtml) {
-  console.error("게임 ID가 URL에 제공되지 않았습니다.");
-} else {
-  fetchGameDetails(gameIdForMainHtml);
-}
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
 
 // const gameId = "4291"; // 게임 ID
