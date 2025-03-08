@@ -3,12 +3,14 @@ let gameList = [];
 
 const callAPIRelease = async () => {
   try {
-    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21`);
+    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=38`);
     let response = await fetch(url);
     let data = await response.json();
     gameList = data.results.filter(game => game.released !== null && game.background_image !== null);
     // console.log("Ggg",gameList)
     renderGameCarousel();
+    renderGameGrid();
+    initAnimations();
   } catch (error) {
     console.error("최신순 API 요청 실패:", error);
     document.getElementById('game-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
@@ -18,7 +20,7 @@ callAPIRelease();
 
 const callAPIRating = async () => {
   try {
-    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-rating&page_size=23`);
+    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-rating&page_size=38`);
     let response = await fetch(url);
     let data = await response.json();
     const ratingGameList = data.results.filter(game => game.released !== null && game.background_image !== null);
@@ -30,8 +32,9 @@ const callAPIRating = async () => {
   }
 };
 callAPIRating();
-// 애니매이션효과
-document.addEventListener('DOMContentLoaded', () => {
+
+// 애니메이션효과 함수로.. api호출후에 나오게하려공
+const initAnimations = () => {
   const recTextElements = document.querySelectorAll('.recommend-text');
   const observerOptions = {
     threshold: 0.5
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, observerOptions);
 
   recTextElements.forEach(el => observer.observe(el));
-});
+};
 //배열 5개씩
 const chunkArray = (array, chunkSize) => {
   const chunks = [];
@@ -114,7 +117,7 @@ const renderRatingCarousel = (sortedGames) => {
     <div class="carousel-item ${index === 0 ? "active" : ""}">
       <div class="game-container">
         ${chunk.map(item => `
-          <div class="game-card flip-card" data-id="${item.id}">
+          <div class="game-card flip-card" draggable="false" data-id="${item.id}">
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <a href="detail.html?id=${item.id}" class="front-link">
@@ -143,7 +146,7 @@ const renderRatingCarousel = (sortedGames) => {
     .join("");
   document.getElementById("rating-list").innerHTML = ratingHTML;
   
-  // 마우스 오버 시 카드 뒤집기 이벤트 등록 (rating-list 내부의 flip-card 대상으로)
+  // 마우스 오버 시 카드 뒤집기 이벤트 등록
   const flipCards = document.querySelectorAll('#rating-list .flip-card');
   flipCards.forEach(card => {
     card.addEventListener('mouseover', () => {
@@ -154,20 +157,31 @@ const renderRatingCarousel = (sortedGames) => {
     });
   });
 };
-//   // 평점 캐러셀의 드래그 이벤트
-//   const ratingCards = document.querySelectorAll('#rating-list .game-card');
-//   ratingCards.forEach(card => {
-//     card.addEventListener('dragstart', (event) => {
-//       event.dataTransfer.setData('text/html', card.outerHTML);
-//     });
-//   });
-// };
 
-let currentSlide = 0; // 기존 캐러셀 슬라이드 인덱스
-let currentSlideRating = 0; // 평점 캐러셀 슬라이드 인덱스
-let hasDroppedGame = false; //처음 드랍값
-let recommendedShown = false; //처음 추천값
+// 추천게임 랜덤으로 렌더링하는 함수
+const renderGameGrid = () => {
+  const gridContainer = document.getElementById('game-grid-list');
+  
+  if (!gameList || gameList.length === 0) {
+    gridContainer.innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+    return;
+  }
+  
+  const cardCount = 5;
+  const shuffledGames = [...gameList].sort(() => Math.random() - 0.5);
+  const selectedGames = shuffledGames.slice(0, cardCount);
 
+  const gridHTML = selectedGames.map(item => `
+    <div class="game-card" data-id="${item.id}">
+      <a href="detail.html?id=${item.id}" class="front-link">
+        <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
+        <p class="game-title">${item.name}</p>
+        </a>
+    </div>
+  `).join('');
+  
+  gridContainer.innerHTML = gridHTML;
+}
 // 슬라이드 전환 함수
 const showSlide = (carouselId, index) => {
   const slides = document.querySelectorAll(`#${carouselId} .carousel-item`);
@@ -177,6 +191,17 @@ const showSlide = (carouselId, index) => {
   });
   return index;
 };
+// 페이지 로딩 또는 API 호출 후 처음 렌더링 및 리셋 버튼 이벤트 등록
+document.addEventListener('DOMContentLoaded', () => {
+
+  const gridResetBtn = document.getElementById('grid-reset-btn');
+  gridResetBtn.addEventListener('click', renderGameGrid);
+});
+
+let currentSlide = 0; // 기존 캐러셀 슬라이드 인덱스
+let currentSlideRating = 0; // 평점 캐러셀 슬라이드 인덱스
+let hasDroppedGame = false; //처음 드랍값
+let recommendedShown = false; //처음 추천값
 
 document.addEventListener("DOMContentLoaded", () => {
   // 기존 캐러셀 컨트롤 이벤트
@@ -231,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     recommendBtn.addEventListener("click", () => {
       if (!hasDroppedGame) return;
       if (!recommendedShown) {
-        // 추천 버튼 기능 (예: 무작위 게임 카드 표시)
+        // 추천 버튼 기능 (랜덤임)
         const randomIndex = Math.floor(Math.random() * gameList.length);
         const randomGame = gameList[randomIndex];
         const randomGameHTML = `
@@ -286,7 +311,7 @@ const changeBanner = async (id, element) => {
   const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
   const response = await fetch(url);
   const data = await response.json();
-  console.log("dddd", data);
+  // console.log("dddd", data);
   document.querySelector(
     ".main-banner__banner-img-area"
   ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
