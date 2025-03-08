@@ -227,34 +227,21 @@ const getGameData = async () => {
 };
 getGameData();
 
-const changeBanner = async (id, element) => {
-  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("dddd", data);
-  document.querySelector(
-    ".main-banner__banner-img-area"
-  ).innerHTML = `<img data-aos="fade-right" onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
-
-  // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
-  document
-    .querySelectorAll(".main-banner__sub-area__item")
-    .forEach((item) => item.classList.remove("focus"));
-
-  // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
-  if (element) {
-    element.classList.add("focus");
-  } else {
-    document
-      .querySelector(".main-banner__sub-area__item")
-      [currentIndex].classList.add("focus");
-  }
-};
-
 const renderBanner = () => {
   let bannerHTML = ``;
 
-  bannerHTML = `<img src=${games[0].background_image} />`;
+  // <img src=${games[0].background_image} />
+  bannerHTML = `
+  <div id="banner-img" 
+       style="background-image: 
+       linear-gradient(90deg, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0)), 
+       url('${games[0].background_image}');">
+       <p>${games[0].name}</p>
+  </div>
+`;
+  document.querySelector(".main-banner__banner-img-area").innerHTML =
+    bannerHTML;
+
   document.querySelector(".main-banner__banner-img-area").innerHTML =
     bannerHTML;
 
@@ -278,6 +265,36 @@ const renderBanner = () => {
 
   startAutoSlide(); // 페이지 로드 후 자동 슬라이드 시작
 };
+
+async function changeBanner(id, element) {
+  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("dddd", data);
+  document.querySelector(".main-banner__banner-img-area").innerHTML = ` <div
+    data-aos="fade-right"
+    onclick="gotoDetailPage('${id}')"
+    style="background-image: 
+      linear-gradient(90deg, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0)), 
+      url('${data.background_image}');">
+      <p>${data.name}</p>
+  </div>
+`;
+
+  // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
+  document
+    .querySelectorAll(".main-banner__sub-area__item")
+    .forEach((item) => item.classList.remove("focus"));
+
+  // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
+  if (element) {
+    element.classList.add("focus");
+  } else {
+    document
+      .querySelector(".main-banner__sub-area__item")
+      [currentIndex].classList.add("focus");
+  }
+}
 
 // ✅ 수동 클릭 시 자동 슬라이드 리셋
 const manualChangeBanner = (id, index, element) => {
@@ -325,10 +342,10 @@ const getSearchGames = async (event) => {
     console.log("검색어를 입력하세요.");
     return;
   }
-  console.log("input", input);
+
   const url = `https://api.rawg.io/api/games?search=${encodeURIComponent(
     input
-  )}&key=${API_KEY}`;
+  )}&key=${API_KEY1}`;
   let games = [];
 
   try {
@@ -349,7 +366,7 @@ const getSearchGames = async (event) => {
           .map(
             (game) => `
             <div class="search-result col-lg-3">
-              <img onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
+              <img  data-aos="fade-up" onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
               <p>${game.name}</p>
             </div>`
           )

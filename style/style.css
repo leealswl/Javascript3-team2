@@ -4,6 +4,7 @@
 @import "main.css";
 @import "detail.css";
 @import "index.css";
+@import "variable.css";
 
 * {
   margin: 0;
