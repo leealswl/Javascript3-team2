@@ -10,6 +10,42 @@
     <link rel="shortcut icon" href="#">
   </head>
   <body>
+    <!-- navbar -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">GAME</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+              <button class="btn btn-outline-success" type="submit">login</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- main -->
+     
     <main class="container">
         <div class="upper-side">
           <div>
@@ -17,26 +53,23 @@
       <section>
         <div class="detail-menu">
           <div id="under-line"></div>
-          <div>Overview</div>
-          <div>FAQ</div>
+          <div id="overview">Overview</div>
+          <div id="more">More Games</div>
         </div>
       </section>
 
-      <section id="game-img">
-
-        <div>관련 게임</div>
+      <section id="game-img" class="tab-content active"></section>
+      <section id="more-game" class="tab-content"></section>
       </div>
 
-      </section>
-
-      <section id="game-img"></section>
-      </div>
-
-        <div class="col-4">관련 게임</div>
+        <div class="right-side">
+          <!-- <h3 class="mb-3"> Discover more Games</h3>
+          <div id="more-game"></div> -->
+        </div>
       </div>
 
 
-      <div class="group-information">
+      <div class="group-information col-12">
         <div class="information-area">
           <!-- 게임 정보 -->
           <div class="information-wrap" id="game-information">
@@ -81,6 +114,7 @@
               <li class="tag-item"><a href="#">RPG</a></li>
             </ul>
           </div>
+        </div>
         </div>
 
     </main>
