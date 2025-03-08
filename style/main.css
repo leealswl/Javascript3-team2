@@ -150,10 +150,9 @@
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;
-}
-.recommend-text {
+  width: 100%;
   color: #fff;
-  font-size: 3rem;
+
   text-transform: uppercase;
   opacity: 0;
 }
