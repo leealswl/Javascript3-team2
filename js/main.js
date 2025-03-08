@@ -60,8 +60,10 @@ const chunkArray = (array, chunkSize) => {
 // released순 캐러셀 렌더링
 const renderGameCarousel = () => {
   const chunks = chunkArray(gameList, 5);
-  const gameHTML = chunks.map((chunk, index) => `
-    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+  const gameHTML = chunks
+    .map(
+      (chunk, index) => `
+    <div class="carousel-item ${index === 0 ? "active" : ""}">
       <div class="game-container">
         ${chunk.map(item => `
           <div class="game-card flip-card" data-id="${item.id}">
@@ -84,7 +86,9 @@ const renderGameCarousel = () => {
               </div>
             </div>
           </div>
-        `).join('')}
+        `
+          )
+          .join("")}
       </div>
     </div>
   `).join('');
@@ -104,8 +108,10 @@ const renderGameCarousel = () => {
 // rating순 캐러셀 렌더링
 const renderRatingCarousel = (sortedGames) => {
   const chunks = chunkArray(sortedGames, 5);
-  const ratingHTML = chunks.map((chunk, index) => `
-    <div class="carousel-item ${index === 0 ? 'active' : ''}">
+  const ratingHTML = chunks
+    .map(
+      (chunk, index) => `
+    <div class="carousel-item ${index === 0 ? "active" : ""}">
       <div class="game-container">
         ${chunk.map(item => `
           <div class="game-card flip-card" data-id="${item.id}">
@@ -127,10 +133,14 @@ const renderRatingCarousel = (sortedGames) => {
               </div>
             </div>
           </div>
-        `).join('')}
+        `
+          )
+          .join("")}
       </div>
     </div>
-  `).join('');
+  `
+    )
+    .join("");
   document.getElementById("rating-list").innerHTML = ratingHTML;
   
   // 마우스 오버 시 카드 뒤집기 이벤트 등록 (rating-list 내부의 flip-card 대상으로)
@@ -153,53 +163,54 @@ const renderRatingCarousel = (sortedGames) => {
 //   });
 // };
 
-let currentSlide = 0;        // 기존 캐러셀 슬라이드 인덱스
-let currentSlideRating = 0;  // 평점 캐러셀 슬라이드 인덱스
-let hasDroppedGame = false;  //처음 드랍값
-let recommendedShown = false;//처음 추천값
+let currentSlide = 0; // 기존 캐러셀 슬라이드 인덱스
+let currentSlideRating = 0; // 평점 캐러셀 슬라이드 인덱스
+let hasDroppedGame = false; //처음 드랍값
+let recommendedShown = false; //처음 추천값
 
 // 슬라이드 전환 함수
 const showSlide = (carouselId, index) => {
   const slides = document.querySelectorAll(`#${carouselId} .carousel-item`);
   if (index < 0 || index >= slides.length) return;
   slides.forEach((slide, i) => {
-    slide.classList.toggle('active', i === index);
+    slide.classList.toggle("active", i === index);
   });
   return index;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // 기존 캐러셀 컨트롤 이벤트
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  prevBtn.addEventListener('click', () => {
-    const slides = document.querySelectorAll('#game-carousel .carousel-item');
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  prevBtn.addEventListener("click", () => {
+    const slides = document.querySelectorAll("#game-carousel .carousel-item");
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide('game-carousel', currentSlide);
+    showSlide("game-carousel", currentSlide);
   });
-  nextBtn.addEventListener('click', () => {
-    const slides = document.querySelectorAll('#game-carousel .carousel-item');
+  nextBtn.addEventListener("click", () => {
+    const slides = document.querySelectorAll("#game-carousel .carousel-item");
     currentSlide = (currentSlide + 1) % slides.length;
-    showSlide('game-carousel', currentSlide);
+    showSlide("game-carousel", currentSlide);
   });
 })
   // 평점 캐러셀 컨트롤 이벤트
-  const prevBtnRating = document.getElementById('prev-btn-rating');
-  const nextBtnRating = document.getElementById('next-btn-rating');
-  prevBtnRating.addEventListener('click', () => {
-    const slides = document.querySelectorAll('#rating-carousel .carousel-item');
-    currentSlideRating = (currentSlideRating - 1 + slides.length) % slides.length;
-    showSlide('rating-carousel', currentSlideRating);
+  const prevBtnRating = document.getElementById("prev-btn-rating");
+  const nextBtnRating = document.getElementById("next-btn-rating");
+  prevBtnRating.addEventListener("click", () => {
+    const slides = document.querySelectorAll("#rating-carousel .carousel-item");
+    currentSlideRating =
+      (currentSlideRating - 1 + slides.length) % slides.length;
+    showSlide("rating-carousel", currentSlideRating);
   });
-  nextBtnRating.addEventListener('click', () => {
-    const slides = document.querySelectorAll('#rating-carousel .carousel-item');
+  nextBtnRating.addEventListener("click", () => {
+    const slides = document.querySelectorAll("#rating-carousel .carousel-item");
     currentSlideRating = (currentSlideRating + 1) % slides.length;
-    showSlide('rating-carousel', currentSlideRating);
+    showSlide("rating-carousel", currentSlideRating);
   });
 
   // 드롭존
-  const dropZone = document.getElementById('drop-zone');
-  const recommendBtn = document.getElementById('recommend-btn');
+  const dropZone = document.getElementById("drop-zone");
+  const recommendBtn = document.getElementById("recommend-btn");
 
   dropZone.addEventListener("dragover", (event) => {
     event.preventDefault();
@@ -211,13 +222,13 @@ document.addEventListener('DOMContentLoaded', () => {
   dropZone.addEventListener("drop", (event) => {
     event.preventDefault();
     if (hasDroppedGame) return;
-    dropZone.classList.remove('drop-zone-active');
-    const gameCardHTML = event.dataTransfer.getData('text/html');
+    dropZone.classList.remove("drop-zone-active");
+    const gameCardHTML = event.dataTransfer.getData("text/html");
     dropZone.innerHTML = gameCardHTML;
     hasDroppedGame = true;
   });
   if (recommendBtn) {
-    recommendBtn.addEventListener('click', () => {
+    recommendBtn.addEventListener("click", () => {
       if (!hasDroppedGame) return;
       if (!recommendedShown) {
         // 추천 버튼 기능 (예: 무작위 게임 카드 표시)
@@ -232,27 +243,27 @@ document.addEventListener('DOMContentLoaded', () => {
             </a>
           </div>
         `;
-        document.getElementById('drop-zone').innerHTML = randomGameHTML;
+        document.getElementById("drop-zone").innerHTML = randomGameHTML;
         recommendedShown = true;
         recommendBtn.disabled = true;
       }
     });
   }
   // 리셋 버튼 이벤트
-  const resetBtn = document.getElementById('reset-btn');
+  const resetBtn = document.getElementById("reset-btn");
   if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      document.getElementById('drop-zone').innerHTML = "";
+    resetBtn.addEventListener("click", () => {
+      document.getElementById("drop-zone").innerHTML = "";
       hasDroppedGame = false;
       recommendedShown = false;
-      document.getElementById('recommend-btn').disabled = false;
-      showSlide('game-carousel', 0);
+      document.getElementById("recommend-btn").disabled = false;
+      showSlide("game-carousel", 0);
     });
   };
 
 // 여기
 
-// const API_KEY = "8150b00e2a1f40e486076b6650624997";
+const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
 let currentIndex = 0;
@@ -260,7 +271,7 @@ let autoSlideInterval;
 
 const getGameData = async () => {
   const url =
-    new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-added
+    new URL(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21
 `);
   const response = await fetch(url);
   const data = await response.json();
@@ -275,6 +286,7 @@ const changeBanner = async (id, element) => {
   const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
   const response = await fetch(url);
   const data = await response.json();
+  console.log("dddd", data);
   document.querySelector(
     ".main-banner__banner-img-area"
   ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
@@ -358,7 +370,6 @@ const restartAutoSlide = () => {
 };
 
 const gotoDetailPage = (id) => {
-  console.log("gameId", id);
   window.location.href = `detail.html?id=${id}`;
 };
 

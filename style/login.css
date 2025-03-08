@@ -64,7 +64,6 @@
     cursor: pointer;
     border: none;
     background: linear-gradient(90deg, #00c9a7, #2ecc71);
-    /* background: #FF5582; */
     background: #FA397C;
     transition: 0.3s;
 }
