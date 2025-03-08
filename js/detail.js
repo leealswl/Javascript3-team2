@@ -1,8 +1,15 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
 
+// const gameId = "4291"; // 게임 ID
 
-const gameId = '4291'; // 게임 ID
-let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소
+// URL에서 gameId 가져오기
+const getGameIdFromURL = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get("id");
+};
+
+// gameId 가져오기
+const gameId = getGameIdFromURL();
 
 let gameData = []; // 게임 데이터를 저장할 변수
 let gameTags = []; // 해당 게임의 태그 데이터를 저장할 변수
@@ -11,8 +18,12 @@ let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
 let redditData = [];
 
 
+
 // const gameId = "4291"; // 게임 ID
 // let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
+
+let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
+
 
 // let gameData = [];
 
