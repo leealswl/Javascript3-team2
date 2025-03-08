@@ -1,3 +1,4 @@
+AOS.init();
 const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
 let gameList = [];
 
@@ -209,15 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 여기
 
-const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
 let currentIndex = 0;
 let autoSlideInterval;
 
 const getGameData = async () => {
-  const url =
-    new URL(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21
+  const url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}
 `);
   const response = await fetch(url);
   const data = await response.json();
@@ -229,13 +228,13 @@ const getGameData = async () => {
 getGameData();
 
 const changeBanner = async (id, element) => {
-  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
   const response = await fetch(url);
   const data = await response.json();
   console.log("dddd", data);
   document.querySelector(
     ".main-banner__banner-img-area"
-  ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
+  ).innerHTML = `<img data-aos="fade-right" onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
 
   // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
   document
@@ -330,7 +329,6 @@ const getSearchGames = async (event) => {
   const url = `https://api.rawg.io/api/games?search=${encodeURIComponent(
     input
   )}&key=${API_KEY}`;
-
   let games = [];
 
   try {

@@ -270,32 +270,34 @@ if (!gameIdForMainHtml) {
 
 getGameInfo();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const posts = [
-        {
-            title: 'Title of the Reddit Post',
-            url: 'https://example.com',
-            image: 'https://via.placeholder.com/350x200',
-            created: '2025-03-08',
-            username: 'username',
-            description: 'This is the description of the post...'
-        },
-        // 다른 게시물 데이터를 여기에 추가할 수 있습니다.
-    ];
+document.addEventListener("DOMContentLoaded", () => {
+  const posts = [
+    {
+      title: "Title of the Reddit Post",
+      url: "https://example.com",
+      image: "https://via.placeholder.com/350x200",
+      created: "2025-03-08",
+      username: "username",
+      description: "This is the description of the post...",
+    },
+    // 다른 게시물 데이터를 여기에 추가할 수 있습니다.
+  ];
 
-    const redditList = document.querySelector('.reddit-list');
+  const redditList = document.querySelector(".reddit-list");
 
-    posts.forEach(post => {
-        const postItem = document.createElement('li');
-        postItem.classList.add('reddit-item');
+  posts.forEach((post) => {
+    const postItem = document.createElement("li");
+    postItem.classList.add("reddit-item");
 
-        postItem.innerHTML = `
+    postItem.innerHTML = `
             <a href="${post.url}" target="_blank" class="post-link">
                 <p class="post-title">${post.title}</p>
             </a>
             <img class="post-img" src="${post.image}" alt="${post.title}" />
             <div class="post-info">
-                <p><strong>Created:</strong> ${new Date(post.created).toLocaleString()}</p>
+                <p><strong>Created:</strong> ${new Date(
+                  post.created
+                ).toLocaleString()}</p>
                 <p><strong>Posted by:</strong> ${post.username}</p>
             </div>
             <div class="post-text">${post.description}</div>
@@ -304,54 +306,61 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        redditList.appendChild(postItem);
-    });
+    redditList.appendChild(postItem);
+  });
 });
 
 const getRedditPosts = async () => {
-    console.log("게임 ID:", gameId);
-    const url = `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`;
+  console.log("게임 ID:", gameId);
+  const url = `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`;
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-        const data = await response.json();
-        console.log("Reddit Posts:", data.results);
+    const data = await response.json();
+    console.log("Reddit Posts:", data.results);
 
-        const postsContainer = document.querySelector('.reddit-list');
-        postsContainer.innerHTML = ''; // 기존 내용 초기화
+    const postsContainer = document.querySelector(".reddit-list");
+    postsContainer.innerHTML = ""; // 기존 내용 초기화
 
-        data.results.slice(0, 9).forEach(post => {  // 최대 9개만 표시
-            const postElement = document.createElement('li');
-            postElement.classList.add('reddit-item');
-        
-            // 전체 포스트를 감싸는 a 태그
-            const linkElement = document.createElement('a');
-            linkElement.href = post.url;
-            linkElement.target = '_blank';
-            linkElement.classList.add('post-link');
-        
-            // 링크 안에 포스트 내용 넣기
-            linkElement.innerHTML = `
+    data.results.slice(0, 9).forEach((post) => {
+      // 최대 9개만 표시
+      const postElement = document.createElement("li");
+      postElement.classList.add("reddit-item");
+
+      // 전체 포스트를 감싸는 a 태그
+      const linkElement = document.createElement("a");
+      linkElement.href = post.url;
+      linkElement.target = "_blank";
+      linkElement.classList.add("post-link");
+
+      // 링크 안에 포스트 내용 넣기
+      linkElement.innerHTML = `
                 <p class="post-title">${post.name}</p>
-                ${post.image ? `<img class="post-img" src="${post.image}" alt="${post.name}" />` : ''}
+                ${
+                  post.image
+                    ? `<img class="post-img" src="${post.image}" alt="${post.name}" />`
+                    : ""
+                }
                 <div class="post-info">
-                    <p><strong>Created:</strong> ${new Date(post.created).toLocaleString()}</p>
+                    <p><strong>Created:</strong> ${new Date(
+                      post.created
+                    ).toLocaleString()}</p>
                     <p><strong>Posted by:</strong> ${post.username}</p>
                 </div>
             `;
-        
-            // 전체 포스트를 linkElement 안에 삽입
-            postElement.appendChild(linkElement);
-        
-            postsContainer.appendChild(postElement);
-        });
-    } catch (error) {
-        console.error("데이터 가져오기 실패:", error);
-    }
+
+      // 전체 포스트를 linkElement 안에 삽입
+      postElement.appendChild(linkElement);
+
+      postsContainer.appendChild(postElement);
+    });
+  } catch (error) {
+    console.error("데이터 가져오기 실패:", error);
+  }
 };
 
 getRedditPosts();
