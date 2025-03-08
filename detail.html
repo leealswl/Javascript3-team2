@@ -10,6 +10,25 @@
     <link rel="shortcut icon" href="#">
   </head>
   <body>
+    <!-- navbar -->
+    <header>
+      <nav class="navbar">
+        <div
+          class="container-fluid d-flex justify-content-between align-items-center"
+        >
+          <div class="navbar-brand">
+            <span style="font-size: 1.8rem; color: white">🎮 Nona Game</span>
+          </div>
+          <div>
+            <button id="modeToggle" class="btn btn-light">라이트 모드</button>
+            <button id="loginBtn" class="btn btn-primary ms-2">로그인</button>
+          </div>
+        </div>
+      </nav>
+      </header>
+
+    <!-- main -->
+     
     <main class="container">
         <div class="upper-side">
           <div>
@@ -17,26 +36,23 @@
       <section>
         <div class="detail-menu">
           <div id="under-line"></div>
-          <div>Overview</div>
-          <div>FAQ</div>
+          <div id="overview">Overview</div>
+          <div id="more">More Games</div>
         </div>
       </section>
 
-      <section id="game-img">
-
-        <div>관련 게임</div>
+      <section id="game-img" class="tab-content active"></section>
+      <section id="more-game" class="tab-content"></section>
       </div>
 
-      </section>
-
-      <section id="game-img"></section>
-      </div>
-
-        <div class="col-4">관련 게임</div>
+        <div class="right-side">
+          <!-- <h3 class="mb-3"> Discover more Games</h3>
+          <div id="more-game"></div> -->
+        </div>
       </div>
 
 
-      <div class="group-information">
+      <div class="group-information col-12">
         <div class="information-area">
           <!-- 게임 정보 -->
           <div class="information-wrap" id="game-information">
@@ -81,6 +97,7 @@
               <li class="tag-item"><a href="#">RPG</a></li>
             </ul>
           </div>
+        </div>
         </div>
 
         <!-- 최신 포스터 글 -->
