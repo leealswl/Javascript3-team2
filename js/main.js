@@ -23,6 +23,27 @@ const callAPIRelease = async () => {
 };
 callAPIRelease();
 
+const callAPIRating = async () => {
+  try {
+    let url = new URL(
+      `https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-rating&page_size=23`
+    );
+    let response = await fetch(url);
+    let data = await response.json();
+    const ratingGameList = data.results.filter(
+      (game) => game.released !== null && game.background_image !== null
+    );
+    // console.log("Ggg",ratingGameList)
+    renderRatingCarousel(ratingGameList);
+  } catch (error) {
+    console.error("평점 순 API 요청 실패:", error);
+    document.getElementById(
+      "rating-list"
+    ).innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+  }
+};
+callAPIRating();
+
 // 애니매이션효과
 document.addEventListener("DOMContentLoaded", () => {
   const recTextElements = document.querySelectorAll(".recommend-text");
