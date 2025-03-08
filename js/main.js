@@ -1,24 +1,55 @@
 const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
 let gameList = [];
 
-const callAPI = async () => {
+const callAPIRelease = async () => {
   try {
-    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&page_size=20`);
+    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21`);
     let response = await fetch(url);
     let data = await response.json();
-    gameList = data.results;
+    gameList = data.results.filter(game => game.released !== null && game.background_image !== null);
+    // console.log("Ggg",gameList)
     renderGameCarousel();
-    // 평점순 캐러셀: rating 내림차순 정렬 후 렌더링
-    const sortedByRating = [...gameList].sort((a, b) => b.rating - a.rating);
-    renderRatingCarousel(sortedByRating);
-    console.log("게임 데이터:", gameList);
   } catch (error) {
-    console.error("API 요청 실패:", error);
+    console.error("최신순 API 요청 실패:", error);
     document.getElementById('game-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
   }
 };
-callAPI();
+callAPIRelease();
 
+const callAPIRating = async () => {
+  try {
+    let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-rating&page_size=23`);
+    let response = await fetch(url);
+    let data = await response.json();
+    const ratingGameList = data.results.filter(game => game.released !== null && game.background_image !== null);
+      // console.log("Ggg",ratingGameList)
+    renderRatingCarousel(ratingGameList);
+  } catch (error) {
+    console.error("평점 순 API 요청 실패:", error);
+    document.getElementById('rating-list').innerHTML = `<p>게임 데이터를 불러올 수 없습니다.</p>`;
+  }
+};
+callAPIRating();
+// 애니매이션효과
+document.addEventListener('DOMContentLoaded', () => {
+  const recTextElements = document.querySelectorAll('.recommend-text');
+  const observerOptions = {
+    threshold: 0.5
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate__animated', 'animate__fadeInDown');
+        entry.target.style.opacity = 1;
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  recTextElements.forEach(el => observer.observe(el));
+});
+//배열 5개씩
 const chunkArray = (array, chunkSize) => {
   const chunks = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -26,51 +57,75 @@ const chunkArray = (array, chunkSize) => {
   }
   return chunks;
 };
-
-// 기존 캐러셀 렌더링
+// released순 캐러셀 렌더링
 const renderGameCarousel = () => {
   const chunks = chunkArray(gameList, 5);
   const gameHTML = chunks.map((chunk, index) => `
     <div class="carousel-item ${index === 0 ? 'active' : ''}">
       <div class="game-container">
         ${chunk.map(item => `
-          <div class="game-card" draggable="true">
-            <a href="detail.html?id=${item.id}">
-              <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
-              <p class="game-title">${item.name}</p>
-            </a>
+          <div class="game-card flip-card" data-id="${item.id}">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <a href="detail.html?id=${item.id}" class="front-link">
+                  <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
+                </a>
+              </div>
+              <div class="flip-card-back">
+                <a href="detail.html?id=${item.id}" class="back-link">
+                  <div class="back-content">
+                    <p class="game-title">${item.name}</p>
+                    <p class="game-released">${item.released}</p>
+                    <p class="game-rating">
+                      <i class="fa-solid fa-star"></i> ${item.rating}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         `).join('')}
       </div>
-    </div>`).join('');
+    </div>
+  `).join('');
   document.getElementById("game-list").innerHTML = gameHTML;
   
-  // 드래그 이벤트 부착
-  const gameCards = document.querySelectorAll('.game-card');
-  gameCards.forEach(card => {
-    card.addEventListener('dragstart', (event) => {
-      if (hasDroppedGame) {
-        event.preventDefault();
-        return;
-      }
-      event.dataTransfer.setData('text/html', card.outerHTML);
-    });
-  });
-};
-
-// 평점순 캐러셀 렌더링 함수
+   // 마우스 오버 시 카드 뒤집기 이벤트
+   const flipCards = document.querySelectorAll('.flip-card');
+   flipCards.forEach(card => {
+     card.addEventListener('mouseover', () => {
+       card.classList.add('flipped');
+     });
+     card.addEventListener('mouseout', () => {
+       card.classList.remove('flipped');
+     });
+   });
+ };
+// rating순 캐러셀 렌더링
 const renderRatingCarousel = (sortedGames) => {
   const chunks = chunkArray(sortedGames, 5);
   const ratingHTML = chunks.map((chunk, index) => `
     <div class="carousel-item ${index === 0 ? 'active' : ''}">
       <div class="game-container">
         ${chunk.map(item => `
-          <div class="game-card" draggable="true">
-            <a href="detail.html?id=${item.id}">
-              <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
-              <p class="game-title">${item.name}</p>
-              <p class="game-rating">Rating: ${item.rating}</p>
-            </a>
+          <div class="game-card flip-card" data-id="${item.id}">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <a href="detail.html?id=${item.id}" class="front-link">
+                  <img src="${item.background_image}" class="game-thumbnail" alt="${item.name}">
+                </a>
+              </div>
+              <div class="flip-card-back">
+                <a href="detail.html?id=${item.id}" class="back-link">
+                  <div class="back-content">
+                    <p class="game-title">${item.name}</p>
+                    <p class="game-rating">
+                      <i class="fa-solid fa-star"></i> ${item.rating}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         `).join('')}
       </div>
@@ -78,14 +133,25 @@ const renderRatingCarousel = (sortedGames) => {
   `).join('');
   document.getElementById("rating-list").innerHTML = ratingHTML;
   
-  // 평점 캐러셀의 드래그 이벤트
-  const ratingCards = document.querySelectorAll('#rating-list .game-card');
-  ratingCards.forEach(card => {
-    card.addEventListener('dragstart', (event) => {
-      event.dataTransfer.setData('text/html', card.outerHTML);
+  // 마우스 오버 시 카드 뒤집기 이벤트 등록 (rating-list 내부의 flip-card 대상으로)
+  const flipCards = document.querySelectorAll('#rating-list .flip-card');
+  flipCards.forEach(card => {
+    card.addEventListener('mouseover', () => {
+      card.classList.add('flipped');
+    });
+    card.addEventListener('mouseout', () => {
+      card.classList.remove('flipped');
     });
   });
 };
+//   // 평점 캐러셀의 드래그 이벤트
+//   const ratingCards = document.querySelectorAll('#rating-list .game-card');
+//   ratingCards.forEach(card => {
+//     card.addEventListener('dragstart', (event) => {
+//       event.dataTransfer.setData('text/html', card.outerHTML);
+//     });
+//   });
+// };
 
 let currentSlide = 0;        // 기존 캐러셀 슬라이드 인덱스
 let currentSlideRating = 0;  // 평점 캐러셀 슬라이드 인덱스
@@ -116,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide('game-carousel', currentSlide);
   });
-
+})
   // 평점 캐러셀 컨트롤 이벤트
   const prevBtnRating = document.getElementById('prev-btn-rating');
   const nextBtnRating = document.getElementById('next-btn-rating');
@@ -172,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
   // 리셋 버튼 이벤트
   const resetBtn = document.getElementById('reset-btn');
   if (resetBtn) {
@@ -183,12 +248,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('recommend-btn').disabled = false;
       showSlide('game-carousel', 0);
     });
-  }
-});
+  };
 
 // 여기
 
-const API_KEY = "8150b00e2a1f40e486076b6650624997";
+// const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
 let currentIndex = 0;
@@ -196,19 +260,19 @@ let autoSlideInterval;
 
 const getGameData = async () => {
   const url =
-    new URL(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-added
+    new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-added
 `);
   const response = await fetch(url);
   const data = await response.json();
   games = data.results;
   // console.log("ddd", data);
-  console.log("gggg", games);
+  // console.log("gggg", games);
   renderBanner();
 };
 getGameData();
 
 const changeBanner = async (id, element) => {
-  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
   const response = await fetch(url);
   const data = await response.json();
   document.querySelector(
