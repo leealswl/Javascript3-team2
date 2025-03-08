@@ -11,7 +11,7 @@ function signIn() {
     const username = document.querySelector("input[type='text']").value;
     const password = document.querySelector("input[type='password']").value;
 
-    const validUsername = "nonagame2";
+    const validUsername = "noonagame2";
     const validPassword = "1234";
 
     if (username !== validUsername) {
