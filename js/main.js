@@ -322,7 +322,6 @@ async function changeBanner(id, element) {
   const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
   const response = await fetch(url);
   const data = await response.json();
-  console.log("dddd", data);
   document.querySelector(".main-banner__banner-img-area").innerHTML = ` <div
     data-aos="fade-right"
     onclick="gotoDetailPage('${id}')"

@@ -16,14 +16,12 @@ let publisherData = []; // 게임의 게시자 데이터를 저장할 변수
 let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
 let redditData = [];
 
-
-let mode = "overview"
+let mode = "overview";
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
 
 let recommendList = [];
 let screenShotList = [];
 let screenShotSrc = [];
-
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
@@ -33,10 +31,10 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (e) => underlineIndicator(e))
 );
 
-for (let i =1; i<menus.length; i++){
-  menus[i].addEventListener("click",function(event){
-    page(event)
-  })
+for (let i = 1; i < menus.length; i++) {
+  menus[i].addEventListener("click", function (event) {
+    page(event);
+  });
 }
 
 function underlineIndicator(e) {
@@ -46,16 +44,15 @@ function underlineIndicator(e) {
     e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
 }
 
-function page(event){
-  mode = event.target.id
+function page(event) {
+  mode = event.target.id;
 
-  if (mode === "more"){
+  if (mode === "more") {
     document.getElementById("game-img").classList.remove("active");
     document.getElementById("more-game").classList.add("active");
-  } else if (mode === "overview"){
+  } else if (mode === "overview") {
     document.getElementById("more-game").classList.remove("active");
     document.getElementById("game-img").classList.add("active");
-
   }
 }
 
@@ -90,8 +87,7 @@ const fetchGameDetails = async (gameId) => {
   try {
     // 게임 정보 API 호출
     const gameResponse = await fetch(`
-      https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
-    );
+      https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`);
     gameData = await gameResponse.json();
 
     // 게임의 태그 목록을 가져옵니다.
@@ -126,18 +122,25 @@ const render = () => {
          <span class="tags"># ${gameData.tags[1].name}</span>
        </div>`;
 
-
-       const imgHTML = 
-       `<div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
-           <div class="carousel-inner">
-             <div class="carousel-item active">
-               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-             </div>
-             ${screenShotSrc.map(screen=> `<div class="carousel-item">
-               <img src="${screen}" class="d-block w-100" alt="...">
-             </div>`)}
+  const imgHTML = `
+       <div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
+         <div class="carousel-inner">
+           <div class="carousel-item active">
+             <img src="${
+               gameData.background_image
+             }" class="d-block w-100" alt="...">
            </div>
-           <div class="slide-button">
+           ${screenShotSrc
+             .map(
+               (screen) => `
+               <div class="carousel-item">
+                 <img src="${screen}" class="d-block w-100" alt="...">
+               </div>`
+             )
+             .join("")}
+         </div>
+     
+         <div class="slide-button">
            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
              <span class="visually-hidden">Previous</span>
@@ -147,20 +150,32 @@ const render = () => {
              <span class="visually-hidden">Next</span>
            </button>
          </div>
-           <div class="carousel-indicators change-page">
-             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-             </button>
-               ${screenShotSrc.map(screen => `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-                   <img src="${screen}" class="d-block w-100" alt="...">
-               </button>
-             </div>`)}` 
+     
+         <div class="carousel-indicators change-page">
+           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 1">
+             <img src="${
+               gameData.background_image
+             }" class="d-block w-100" alt="...">
+           </button>
+           ${screenShotSrc
+             .map(
+               (screen, index) => `
+               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${
+                 index + 1
+               }" aria-label="Slide ${index + 2}">
+                 <img src="${screen}" class="d-block w-100" alt="...">
+               </button>`
+             )
+             .join("")}
+         </div>
+       </div>
+     `;
 
-let moreHTML = `<div class="row row-cols-3 g-3 more-games-container">`;
+  let moreHTML = `<div class="row row-cols-3 g-3 more-games-container">`;
 
-if (recommendList.length <12){
-for (let i = 0; i < recommendList.length; i++) {
-  moreHTML += `
+  if (recommendList.length < 12) {
+    for (let i = 0; i < recommendList.length; i++) {
+      moreHTML += `
     <div class="col">
       <div class="card">
         <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
@@ -170,10 +185,10 @@ for (let i = 0; i < recommendList.length; i++) {
       </div>
     </div>
   `;
-}
-} else{
-  for (let i = 0; i < 12; i++) {
-    moreHTML += `
+    }
+  } else {
+    for (let i = 0; i < 12; i++) {
+      moreHTML += `
       <div class="col">
         <div class="card">
           <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
@@ -183,11 +198,9 @@ for (let i = 0; i < recommendList.length; i++) {
         </div>
       </div>
     `;
+    }
   }
-  
-}
-moreHTML += `</div>`;
-
+  moreHTML += `</div>`;
 
   document.getElementById("game-title").innerHTML = resultHTML;
   document.getElementById("game-img").innerHTML = imgHTML;
@@ -229,8 +242,7 @@ const displayGameDetails = (game) => {
             <li><strong>Metacritic Score :</strong>&nbsp;&nbsp;<em>${
               game.metacritic || "Information not available"
             }</em></li>
-        </ul>`
-    ;
+        </ul>`;
 };
 
 // 장르 정보를 HTML에 표시하는 함수
@@ -282,10 +294,9 @@ const displayPublisher = (publisher) => {
                 <li class="publisher-item"><strong>Games Published :</strong>&nbsp;&nbsp;<em>${
                   publisher.games_count || "No games available"
                 }</em></li>
-            </ul>`
-        ;
+            </ul>`;
   } else {
-    publisherWrap.innerHTML = `<p>No publisher data available.</p>;`
+    publisherWrap.innerHTML = `<p>No publisher data available.</p>;`;
   }
 };
 
@@ -302,8 +313,7 @@ const displayCreator = (creator) => {
                 <li class="creator-item"><strong>Games Created :</strong>&nbsp;&nbsp;<em>${
                   creator.games_count || "No games available"
                 }</em></li>
-            </ul>`
-        ;
+            </ul>`;
   } else {
     creatorWrap.innerHTML = `<p>No creator data available.</p>`;
   }
@@ -328,7 +338,9 @@ const moreGames = async () => {
   }
 
   try {
-    const gameListUrl = new URL(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`);
+    const gameListUrl = new URL(
+      `https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`
+    );
     let response = await fetch(gameListUrl);
     let data = await response.json();
     gameList = data.results;
@@ -338,9 +350,11 @@ const moreGames = async () => {
 
       // genres 배열이 있는지 체크 후 비교
       if (game.genres && game.genres.length > 0 && gameId != game.id) {
-        for (let j = 0; j < game.genres.length; j++) {  // `j`로 변경
+        for (let j = 0; j < game.genres.length; j++) {
+          // `j`로 변경
           if (game.genres[j].name === genre) {
-            if (!recommendList.some(g => g.id === game.id)) {  // 중복 방지
+            if (!recommendList.some((g) => g.id === game.id)) {
+              // 중복 방지
               recommendList.push(game);
             }
           }
@@ -473,17 +487,18 @@ const getRedditPosts = async () => {
 getRedditPosts();
 
 const screenShot = async () => {
+  const screenShotUrl = new URL(
+    `https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`
+  );
+  let response = await fetch(screenShotUrl);
+  let shots = await response.json();
+  screenShotList = shots.results;
 
-    const screenShotUrl = new URL (`https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`)
-    let response = await fetch(screenShotUrl)
-    let shots = await response.json();
-    screenShotList = shots.results
+  for (let i = 0; i < screenShotList.length; i++) {
+    screenShotSrc.push(screenShotList[i].image);
+  }
+  console.log(screenShotSrc);
+  render();
+};
 
-    for (let i=0; i<screenShotList.length; i++){
-      screenShotSrc.push(screenShotList[i].image)
-    }
-    console.log(screenShotSrc)
-    render()
-}
-
-screenShot()
+screenShot();
