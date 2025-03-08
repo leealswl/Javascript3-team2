@@ -299,30 +299,6 @@ const getGameData = async () => {
 };
 getGameData();
 
-const changeBanner = async (id, element) => {
-  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("dddd", data);
-  document.querySelector(
-    ".main-banner__banner-img-area"
-  ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
-
-  // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
-  document
-    .querySelectorAll(".main-banner__sub-area__item")
-    .forEach((item) => item.classList.remove("focus"));
-
-  // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
-  if (element) {
-    element.classList.add("focus");
-  } else {
-    document
-      .querySelector(".main-banner__sub-area__item")
-      [currentIndex].classList.add("focus");
-  }
-};
-
 const renderBanner = () => {
   let bannerHTML = ``;
 
@@ -477,41 +453,3 @@ const getSearchGames = async (event) => {
   // document.getElementById("drag-zone").innerHTML = "";
   document.getElementById("for-delete").innerHTML = "";
 };
-
-const imgHTML = `<div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="${
-              gameData.background_image
-            }" class="d-block w-100" alt="...">
-          </div>
-          ${screenShotSrc.map(
-            (screen) => `<div class="carousel-item">
-            <img src="${screen}" class="d-block w-100" alt="...">
-          </div>`
-          )}
-        </div>
-        <div class="slide-button">
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-        <div class="carousel-indicators change-page">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-            <img src="${
-              gameData.background_image
-            }" class="d-block w-100" alt="...">
-          </button>
-            ${screenShotSrc.map(
-              (
-                screen
-              ) => `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-                <img src="${screen}" class="d-block w-100" alt="...">
-            </button>
-          </div>`
-            )}`;
