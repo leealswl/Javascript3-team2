@@ -7,7 +7,7 @@ const getGameIdFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
-// gameId 가져오기
+// // gameId 가져오기
 const gameId = getGameIdFromURL();
 
 let gameData = []; // 게임 데이터를 저장할 변수
@@ -20,8 +20,9 @@ let redditData = [];
 let mode = "overview"
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
 
-let gameData = [];
 let recommendList = [];
+let screenShotList = [];
+let screenShotSrc = [];
 
 
 // category underline
@@ -125,35 +126,35 @@ const render = () => {
          <span class="tags"># ${gameData.tags[1].name}</span>
        </div>`;
 
-  const imgHTML = `
-    <div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="${gameData.background_image_additional}" class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <div class="slide-button">
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-        <div class="carousel-indicators change-page">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-            <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-          </button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-                <img src="${gameData.background_image_additional}" class="d-block w-100" alt="...">
-            </button>
-          </div>`
-       ;
+
+       const imgHTML = 
+       `<div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
+           <div class="carousel-inner">
+             <div class="carousel-item active">
+               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
+             </div>
+             ${screenShotSrc.map(screen=> `<div class="carousel-item">
+               <img src="${screen}" class="d-block w-100" alt="...">
+             </div>`)}
+           </div>
+           <div class="slide-button">
+           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+             <span class="visually-hidden">Previous</span>
+           </button>
+           <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+             <span class="visually-hidden">Next</span>
+           </button>
+         </div>
+           <div class="carousel-indicators change-page">
+             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
+             </button>
+               ${screenShotSrc.map(screen => `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+                   <img src="${screen}" class="d-block w-100" alt="...">
+               </button>
+             </div>`)}` 
 
 let moreHTML = `<div class="row row-cols-3 g-3 more-games-container">`;
 
@@ -357,7 +358,6 @@ const moreGames = async () => {
 
 moreGames();
 async function getGameInfo() {
-  console.log("iiii", gameId);
   const url = new URL(
     `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`
   );
@@ -462,4 +462,19 @@ const getRedditPosts = async () => {
 };
 
 getRedditPosts();
-fetchGameDetails(gameId);
+
+const screenShot = async () => {
+
+    const screenShotUrl = new URL (`https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`)
+    let response = await fetch(screenShotUrl)
+    let shots = await response.json();
+    screenShotList = shots.results
+
+    for (let i=0; i<screenShotList.length; i++){
+      screenShotSrc.push(screenShotList[i].image)
+    }
+    console.log(screenShotSrc)
+    render()
+}
+
+screenShot()
