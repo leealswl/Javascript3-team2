@@ -1,0 +1,325 @@
+body{
+    background-color: black;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: sans-serif ;
+    margin: 0;
+}
+
+
+
+.game-name{
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.upper-side{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3em;
+}
+
+.detail-menu{
+    display: flex;
+    margin-top: 1.5em;
+    position: relative
+}
+
+.detail-menu div{
+    color: rgba(255, 255, 255, 0.65);
+    padding-left: 0;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+#under-line{
+    height: 1.5px;
+    position: absolute;
+    width: 70px;
+    left: 0px;
+    top: 24px;
+    padding: 0;
+    transition: 0.5s;
+    background-color: rgb(29, 198, 254);
+}
+
+.tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+    margin-top: 1.5em;
+  }
+  
+
+.detail-foto-slide{
+    border-radius: 25%;
+    max-width: 600px;
+    margin-top: 1.5em;
+}
+
+
+.slide-button{
+    display: none;
+    position: relative;
+    bottom: 175px;
+
+}
+
+.detail-foto-slide:hover{
+    .slide-button{
+        display: block;
+    }
+}
+
+.image-pagination{
+    max-width: 600px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#game-img{
+    height: 450px;
+}
+
+.game-image{
+    width: 150px;
+    background: none;
+    border: none;
+    opacity: 75%;
+}
+
+.game-image:hover{
+    width: 150px;
+    background: none;
+    border: none;
+    opacity: 100%;
+}
+
+.pagination-button{
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin-top: 2em;
+    display: none;
+}
+
+
+@media (max-width:500px){
+    .pagination-button{
+        display: block;
+    }
+}
+
+.carousel-item img{
+    height: 400px;
+}
+
+.carousel-inner{
+    position: relative;
+}
+
+.carousel-item img{
+    width: 100%;
+    height: auto;
+}
+
+
+.change-page {
+    position: absolute;
+    top: 350px;
+    height: 100px;
+}
+
+.change-page img {
+    width: 150px;
+    height: 70px;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 150px;
+}
+
+.rating-display{
+    margin-left: .5em;
+}
+
+.star {
+    font-size: 15px;
+    color: gold;
+    margin-right: 3px;
+}
+.half {
+    color: gold;  /* 반 개의 별도 같은 색 */
+}
+.empty {
+    color: gold;
+}
+
+.tags{
+    color: white;
+    margin-left: 5px;
+}
+
+.right-side{
+    margin-top: 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+    text-align: center;
+    border-radius: 2.5%;
+    padding: 5px;
+}
+
+.more-game-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card{
+    text-align: center;
+}
+
+.card h5{
+    font-size: medium;
+}
+
+.card-img-top{
+    height: 165px;
+}
+
+
+.card:hover{
+    transform: scale(1.02);
+    transition: 0.5s;
+}
+
+@media (max-width: 1000px){
+    .right-side{
+        display: none;
+    }
+}
+
+@media (max-width: 700px){
+
+}
+
+.more-button{
+}
+
+.card{
+    border: none;
+    background: none;
+    color: white;
+}
+
+
+
+
+
+/* 게임 정보 */
+.group-information{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 384px);
+    text-align: left;
+    margin-top: 50px;
+}
+
+/* 공통 */
+.group-information h3{
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+.group-information strong{
+    display: inline-block;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.group-information em{
+    display: inline-block;
+    font-size: 14px;
+    color: rgba(255, 255, 255, .65);
+}
+
+.group-information .information-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.group-information .information-title{
+    font-size: 24px;
+    color: #fff;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+.group-information .information-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.group-information .publisher-wrap{
+    margin: 20px 0;
+}
+
+.group-information .genre-wrap{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+.group-information .genre-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.group-information .genre-list a{
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    color: inherit;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color .3s;
+}
+.group-information .genre-list a:hover{
+   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.group-information .tag-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.group-information .tag-wrap .tag-title{
+    line-height: 1.5;
+}
+.group-information .tag-wrap .tag-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.group-information .tag-wrap a{
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    color: inherit;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color .3s;
+}
+.group-information .tag-wrap a:hover{
+    background-color: rgba(255, 255, 255, 0.25);
