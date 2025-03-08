@@ -365,8 +365,8 @@ const getSearchGames = async (event) => {
         ${games
           .map(
             (game) => `
-            <div class="search-result col-lg-3">
-              <img  data-aos="fade-up" onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
+            <div class="search-result col-lg-3" data-aos="fade-up">
+              <img  onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
               <p>${game.name}</p>
             </div>`
           )
@@ -376,7 +376,8 @@ const getSearchGames = async (event) => {
 
   document.getElementById("search").value = "";
   document.querySelector(".main-banner").innerHTML = searchHTML;
-
-  document.getElementById("game-sys").innerHTML = "";
-  document.getElementById("drag-zone").innerHTML = "";
+  AOS.init(); // AOS를 다시 초기화해서 검색 결과에도 적용되도록 함
+  // document.getElementById("game-sys").innerHTML = "";
+  // document.getElementById("drag-zone").innerHTML = "";
+  document.getElementById("for-delete").innerHTML = "";
 };
