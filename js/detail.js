@@ -93,7 +93,7 @@ const fetchGameDetails = async (gameId) => {
 const render = () => {
   const resultHTML = `
        <div>
-         <h2 class="game-name">${gameData.name}</h2>
+         <h2 class="game-name">${gameData.name || "game"}</h2>
          <span>${gameData.rating}</span>
          <span class="rating-display" data-rating="${gameData.rating}"></span>
          <span class="tags">${gameData.tags[0].name}</span>
@@ -258,4 +258,14 @@ async function getGameInfo() {
   const data = await response.json();
   console.log("Info", data);
 }
+
+const urlParams = new URLSearchParams(window.location.search);
+const gameIdForMainHtml = urlParams.get("id");
+
+if (!gameIdForMainHtml) {
+  console.error("게임 ID가 URL에 제공되지 않았습니다.");
+} else {
+  fetchGameDetails(gameIdForMainHtml);
+}
+
 getGameInfo();
