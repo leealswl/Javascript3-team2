@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 여기
 
-const API_KEY = "8150b00e2a1f40e486076b6650624997";
+// const API_KEY = "8150b00e2a1f40e486076b6650624997";
 let games = [];
 let gameId = "";
 let currentIndex = 0;
@@ -271,7 +271,7 @@ let autoSlideInterval;
 
 const getGameData = async () => {
   const url =
-    new URL(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21
+    new URL(`https://api.rawg.io/api/games?key=${API_KEY1}&ordering=-released&dates=2025-01-01,2025-12-31&page_size=21
 `);
   const response = await fetch(url);
   const data = await response.json();
