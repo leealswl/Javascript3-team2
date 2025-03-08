@@ -7,7 +7,7 @@ const getGameIdFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
-// gameId 가져오기
+// // gameId 가져오기
 const gameId = getGameIdFromURL();
 
 let gameData = []; // 게임 데이터를 저장할 변수
@@ -16,7 +16,14 @@ let publisherData = []; // 게임의 게시자 데이터를 저장할 변수
 let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
 let redditData = [];
 
+
+let mode = "overview"
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
+
+let recommendList = [];
+let screenShotList = [];
+let screenShotSrc = [];
+
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
@@ -26,11 +33,30 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (e) => underlineIndicator(e))
 );
 
+for (let i =1; i<menus.length; i++){
+  menus[i].addEventListener("click",function(event){
+    page(event)
+  })
+}
+
 function underlineIndicator(e) {
   underLine.style.left = e.currentTarget.offsetLeft + "px";
   underLine.style.width = e.currentTarget.offsetWidth + "px";
   underLine.style.top =
     e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
+}
+
+function page(event){
+  mode = event.target.id
+
+  if (mode === "more"){
+    document.getElementById("game-img").classList.remove("active");
+    document.getElementById("more-game").classList.add("active");
+  } else if (mode === "overview"){
+    document.getElementById("more-game").classList.remove("active");
+    document.getElementById("game-img").classList.add("active");
+
+  }
 }
 
 // 별점 생성 함수
@@ -63,8 +89,8 @@ const generateStars = () => {
 const fetchGameDetails = async (gameId) => {
   try {
     // 게임 정보 API 호출
-    const gameResponse = await fetch(
-      `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
+    const gameResponse = await fetch(`
+      https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
     );
     gameData = await gameResponse.json();
 
@@ -96,42 +122,76 @@ const render = () => {
          <h2 class="game-name">${gameData.name || "game"}</h2>
          <span>${gameData.rating}</span>
          <span class="rating-display" data-rating="${gameData.rating}"></span>
-         <span class="tags">${gameData.tags[0].name}</span>
-         <span class="tags">${gameData.tags[1].name}</span>
+         <span class="tags"># ${gameData.tags[0].name}</span>
+         <span class="tags"># ${gameData.tags[1].name}</span>
        </div>`;
 
-  const imgHTML = `
-    <div id="carouselExampleIndicators" class="carousel slide detail-foto-slide" style="width: 600px; height: 100px;">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="${gameData.background_image_additional}" class="d-block w-100" alt="...">
+
+       const imgHTML = 
+       `<div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
+           <div class="carousel-inner">
+             <div class="carousel-item active">
+               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
+             </div>
+             ${screenShotSrc.map(screen=> `<div class="carousel-item">
+               <img src="${screen}" class="d-block w-100" alt="...">
+             </div>`)}
+           </div>
+           <div class="slide-button">
+           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+             <span class="visually-hidden">Previous</span>
+           </button>
+           <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+             <span class="visually-hidden">Next</span>
+           </button>
+         </div>
+           <div class="carousel-indicators change-page">
+             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+               <img src="${gameData.background_image}" class="d-block w-100" alt="...">
+             </button>
+               ${screenShotSrc.map(screen => `<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+                   <img src="${screen}" class="d-block w-100" alt="...">
+               </button>
+             </div>`)}` 
+
+let moreHTML = `<div class="row row-cols-3 g-3 more-games-container">`;
+
+if (recommendList.length <12){
+for (let i = 0; i < recommendList.length; i++) {
+  moreHTML += `
+    <div class="col">
+      <div class="card">
+        <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${recommendList[i].name}</h5>
+        </div>
+      </div>
+    </div>
+  `;
+}
+} else{
+  for (let i = 0; i < 12; i++) {
+    moreHTML += `
+      <div class="col">
+        <div class="card">
+          <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${recommendList[i].name}</h5>
           </div>
         </div>
-        <div class="slide-button">
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
-        <div class="carousel-indicators change-page">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-            <img src="${gameData.background_image}" class="d-block w-100" alt="...">
-          </button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-                <img src="${gameData.background_image_additional}" class="d-block w-100" alt="...">
-            </button>
-          </div>
-       `;
+    `;
+  }
+  
+}
+moreHTML += `</div>`;
+
 
   document.getElementById("game-title").innerHTML = resultHTML;
   document.getElementById("game-img").innerHTML = imgHTML;
+  document.getElementById("more-game").innerHTML = moreHTML;
   generateStars();
 
   //
@@ -169,8 +229,8 @@ const displayGameDetails = (game) => {
             <li><strong>Metacritic Score :</strong>&nbsp;&nbsp;<em>${
               game.metacritic || "Information not available"
             }</em></li>
-        </ul>
-    `;
+        </ul>`
+    ;
 };
 
 // 장르 정보를 HTML에 표시하는 함수
@@ -222,10 +282,10 @@ const displayPublisher = (publisher) => {
                 <li class="publisher-item"><strong>Games Published :</strong>&nbsp;&nbsp;<em>${
                   publisher.games_count || "No games available"
                 }</em></li>
-            </ul>
-        `;
+            </ul>`
+        ;
   } else {
-    publisherWrap.innerHTML = `<p>No publisher data available.</p>`;
+    publisherWrap.innerHTML = `<p>No publisher data available.</p>;`
   }
 };
 
@@ -242,15 +302,62 @@ const displayCreator = (creator) => {
                 <li class="creator-item"><strong>Games Created :</strong>&nbsp;&nbsp;<em>${
                   creator.games_count || "No games available"
                 }</em></li>
-            </ul>
-        `;
+            </ul>`
+        ;
   } else {
     creatorWrap.innerHTML = `<p>No creator data available.</p>`;
   }
 };
 
+// 초기 데이터 요청
+fetchGameDetails(gameId);
+
+const moreGames = async () => {
+  let genre = "";
+  let gameList = [];
+
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
+    if (data.genres && data.genres.length > 0) {
+      genre = data.genres[0].name;
+    }
+  } catch (error) {
+    console.error("게임 추천 에러:", error);
+    return; // 에러 발생 시 함수 종료
+  }
+
+  try {
+    const gameListUrl = new URL(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`);
+    let response = await fetch(gameListUrl);
+    let data = await response.json();
+    gameList = data.results;
+
+    for (let i = 0; i < gameList.length; i++) {
+      let game = gameList[i];
+
+      // genres 배열이 있는지 체크 후 비교
+      if (game.genres && game.genres.length > 0 && gameId != game.id) {
+        for (let j = 0; j < game.genres.length; j++) {  // `j`로 변경
+          if (game.genres[j].name === genre) {
+            if (!recommendList.some(g => g.id === game.id)) {  // 중복 방지
+              recommendList.push(game);
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error("게임 리스트 에러:", error);
+  }
+
+  console.log("추천 장르:", genre);
+  console.log("추천 게임 리스트:", recommendList);
+  render();
+};
+
+moreGames();
 async function getGameInfo() {
-  console.log("iiii", gameId);
   const url = new URL(
     `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`
   );
@@ -355,4 +462,19 @@ const getRedditPosts = async () => {
 };
 
 getRedditPosts();
-fetchGameDetails(gameId);
+
+const screenShot = async () => {
+
+    const screenShotUrl = new URL (`https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`)
+    let response = await fetch(screenShotUrl)
+    let shots = await response.json();
+    screenShotList = shots.results
+
+    for (let i=0; i<screenShotList.length; i++){
+      screenShotSrc.push(screenShotList[i].image)
+    }
+    console.log(screenShotSrc)
+    render()
+}
+
+screenShot()
