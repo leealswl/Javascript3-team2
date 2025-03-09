@@ -3,6 +3,7 @@ body {
   color: #ffffff;
 }
 
+
 a {
   text-decoration: none;
   color: inherit;
@@ -13,6 +14,7 @@ a {
   font-weight: bold;
   color: #ed3c95;
 }
+
 
 #loginBtn {
   background-color: #fa397c;
@@ -39,7 +41,7 @@ a {
 
 .upper-side {
   display: flex;
-  justify-content: space-around;
+  gap: 20px;
   margin-top: 3em;
 }
 
@@ -204,14 +206,6 @@ a {
   color: #fa397c;
 }
 
-.group-information {
-  position: absolute;
-  top: 0;
-  left: 920px;
-  width: 600px;
-  max-width: 600px;
-}
-
 .right-side {
   margin-top: 4em;
   display: flex;
@@ -266,11 +260,12 @@ a {
 .group-information {
   display: flex;
   flex-direction: column;
-  width: calc(100% - 384px);
+  width: 600px;
   text-align: left;
-  margin-top: 130px;
   overflow-y: scroll;
-  max-height: 450px;
+  max-height: 480px;
+  margin-top: 150px;
+  padding-bottom: 30px;
   overflow-x: hidden;
 }
 /* 스크롤 바 숨기기 */
@@ -329,7 +324,7 @@ a {
   flex-direction: column;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 .genre-list {
   display: flex;
@@ -353,7 +348,7 @@ a {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
-.reddit-wrap h3 {
+.group-reddit h3 {
   font-size: 20px;
   color: #fff;
   margin: 20px 0;
@@ -363,12 +358,12 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 .reddit-item {
   position: relative;
   width: 250px;
-  height: 350px;
+  height: auto;
   list-style-type: none;
   padding: 20px;
   background-color: #202024;
@@ -431,6 +426,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 30px;
 }
 .tag-wrap .tag-item {
   list-style: none;
@@ -524,7 +520,7 @@ a {
     gap: 8px;
   }
   .genre-wrap h3,
-  .reddit-wrap h3 {
+  .group-reddit h3 {
     padding-left: 24px;
     font-size: 14px;
   }

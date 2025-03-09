@@ -1,6 +1,7 @@
 AOS.init();
 
-// const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
+const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
+
 
 let gameList = [];
 
