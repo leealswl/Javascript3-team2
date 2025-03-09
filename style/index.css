@@ -588,6 +588,50 @@ h2.text-center {
     .carousel-caption p  {
         display: none;
     }
+    
 }
+@media (max-width: 1700px){
+    .star p{
+        display: none;
+    }
+    .star img {
+        display: none;
+    }
+}
+/* 기본 스타일 */
+
+
+/* 아이콘의 이미지 크기 */
+.icons img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 작은 화면에서 2개씩 줄어들기 */
+@media (max-width: 1700px) {
+    .grid-container {
+        justify-content: space-between; /* 2개의 열로 배치 */
+    }
+    .icons {
+        width: 120px; /* 너비를 줄여서 크기를 줄임 */
+        height: 100px;
+    }
+    .
+}
+
+/* 아주 작은 화면에서 1개씩 모이면서 사라지기 */
+@media (max-width: 480px) {
+    .grid-container {
+        justify-content: center;
+    }
+    .icons {
+        width: 100px; /* 아이콘 너비 더욱 줄이기 */
+        opacity: 0; /* 화면이 작아지면 아이콘 사라짐 */
+        transform: translateY(20px); /* 애니메이션 효과로 위로 밀리면서 사라짐 */
+    }
+}
+
+
   
+
   
