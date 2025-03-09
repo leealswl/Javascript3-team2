@@ -14,6 +14,9 @@ const indexApi = async () => {
         console.error(error);
     }
 };
+document.getElementById("loginBtn").addEventListener("click", function() {
+    window.location.href = "login.html";
+});
 
 const popularApi = async(limit) => {
     try {
