@@ -297,46 +297,6 @@ const renderTags = (tags) => {
   });
 };
 
-// 게시자 정보를 HTML에 표시하는 함수
-const displayPublisher = (publisher) => {
-  const publisherWrap = document.querySelector(".publisher-wrap");
-
-  if (publisher && publisher.name) {
-    publisherWrap.innerHTML = `
-            <ul class="publisher-list">
-                <li class="publisher-item"><strong>Publisher Description :</strong>&nbsp;&nbsp;<em>${
-                  publisher.description || ""
-                }</em></li>
-                <li class="publisher-item"><strong>Games Published :</strong>&nbsp;&nbsp;<em>${
-                  publisher.games_count || ""
-                }</em></li>
-
-            </ul>`;
-  } else {
-    publisherWrap.innerHTML = `<p>No publisher data available.</p>;`;
-  }
-};
-
-// 크리에이터 정보를 HTML에 표시하는 함수
-const displayCreator = (creator) => {
-  const creatorWrap = document.querySelector(".creator-wrap");
-
-  if (creator && creator.name) {
-    creatorWrap.innerHTML = `
-            <ul class="creator-list">
-                <li class="creator-item"><strong>Creator Description :</strong>&nbsp;&nbsp;<em>${
-                  creator.description || ""
-                }</em></li>
-                <li class="creator-item"><strong>Games Created :</strong>&nbsp;&nbsp;<em>${
-                  creator.games_count || ""
-                }</em></li>
-
-            </ul>`;
-  } else {
-    creatorWrap.innerHTML = `<p>No creator data available.</p>`;
-  }
-};
-
 const moreGames = async () => {
   let genre = "";
   let gameList = [];
