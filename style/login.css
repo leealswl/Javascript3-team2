@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: auto;
     height: 100vh;
     color: #e0e0e0;
     background-color: #121212;
@@ -24,7 +25,7 @@
 .login-container .title {
     font-size: 28px;
     font-weight: bold;
-    color: #2ecc71;
+    color: #fff;
     margin-bottom: 20px;
 }
 
@@ -40,7 +41,7 @@
     padding: 16px;
     background: #222;
     border-radius: 8px;
-    border: 1px solid #2ecc71;
+    border: 1px solid #fff;
     outline: none;
     transition: 0.3s;
 }
@@ -50,7 +51,7 @@
 }
 
 .login-container input:focus {
-    border-color: #2ecc71;
+    border-color: #fff;
     background-color: #2a2a2a;
 }
 
@@ -63,13 +64,8 @@
     border-radius: 8px;
     cursor: pointer;
     border: none;
-    background: linear-gradient(90deg, #00c9a7, #2ecc71);
     background: #FA397C;
     transition: 0.3s;
-}
-
-.login-container .btn-login:hover {
-    background: linear-gradient(90deg, #2ecc71, #00c9a7);
 }
 
 .login-container .btn-social {
@@ -116,13 +112,13 @@
     margin-top: 30px;
 }
 
+
 @media (max-width: 768px) {
     .login-container .group-login {
         gap: 20px;
-        width: 90%;
         max-width: 400px;
-        height: auto;
         padding: 30px;
+        margin: 0 auto;
     }
 
     .login-container .title {
