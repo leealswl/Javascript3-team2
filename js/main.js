@@ -1,3 +1,4 @@
+AOS.init();
 const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
 let gameList = [];
 
@@ -460,7 +461,7 @@ const getSearchGames = async (event) => {
         ${games
           .map(
             (game) => `
-            <div class="search-result col-lg-3" data-aos="fade-up">
+            <div class="search-result col-md-6 col-lg-3" data-aos="fade-up">
               <img  onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
               <p>${game.name}</p>
             </div>`
