@@ -25,6 +25,11 @@ let screenShotList = [];
 let screenShotSrc = [];
 
 
+//상세페이지 이동
+const gotoDetailPage = (id) => {
+  window.location.href = `detail.html?id=${id}`;
+};
+
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
 let underLine = document.getElementById("under-line");
@@ -127,7 +132,7 @@ const render = () => {
        </div>`;
 
 
-       const imgHTML = 
+  const imgHTML = 
        `<div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
            <div class="carousel-inner">
              <div class="carousel-item active">
@@ -163,7 +168,7 @@ for (let i = 0; i < recommendList.length; i++) {
   moreHTML += `
     <div class="col">
       <div class="card">
-        <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+        <img src="${recommendList[i].background_image}" class="card-img-top" onclick="gotoDetailPage(${recommendList[i].id})">
         <div class="card-body">
           <h5 class="card-title">${recommendList[i].name}</h5>
         </div>
@@ -176,7 +181,7 @@ for (let i = 0; i < recommendList.length; i++) {
     moreHTML += `
       <div class="col">
         <div class="card">
-          <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+          <img src="${recommendList[i].background_image}" class="card-img-top" onclick="gotoDetailPage(${recommendList[i].id})">
           <div class="card-body">
             <h5 class="card-title">${recommendList[i].name}</h5>
           </div>
