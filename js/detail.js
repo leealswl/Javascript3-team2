@@ -1,6 +1,4 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
-
-
 const gameId = '4291'; // 게임 ID
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소
 
@@ -152,11 +150,8 @@ const displayGameDetails = (game) => {
   const gameInformation = document.getElementById("game-information");
 
   gameInformation.innerHTML = `
-        <h3 class="information-title">${game.name}</h3>
+        
         <ul class="information-list">
-            <li><strong>Description :</strong> <em>${
-              game.description_raw || "No description available."
-            }</em></li>
             <li><strong>Platforms :</strong>&nbsp;&nbsp;<em>${
               game.platforms
                 ? game.platforms
@@ -165,13 +160,16 @@ const displayGameDetails = (game) => {
                 : "Information not available"
             }</em></li>
             <li><strong>Game Series :</strong>&nbsp;&nbsp;<em>${
-              game.game_series_count || "None"
+                game.game_series_count || "None"
             }</em></li>
             <li><strong>Release Date :</strong>&nbsp;&nbsp;<em>${
-              game.released || "TBD"
+                game.released || "TBD"
             }</em></li>
             <li><strong>Metacritic Score :</strong>&nbsp;&nbsp;<em>${
-              game.metacritic || "Information not available"
+                game.metacritic || "Information not available"
+            }</em></li>
+            <li><strong>Description :</strong> <em>${
+                game.description_raw || "No description available."
             }</em></li>
         </ul>
     `;
@@ -263,7 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
             username: 'username',
             description: 'This is the description of the post...'
         },
-        // 다른 게시물 데이터를 여기에 추가할 수 있습니다.
     ];
 
     const redditList = document.querySelector('.reddit-list');
@@ -307,7 +304,7 @@ const getRedditPosts = async () => {
         const postsContainer = document.querySelector('.reddit-list');
         postsContainer.innerHTML = ''; // 기존 내용 초기화
 
-        data.results.slice(0, 9).forEach(post => {  // 최대 9개만 표시
+        data.results.slice(0, 8).forEach(post => {  // 최대 9개만 표시
             const postElement = document.createElement('li');
             postElement.classList.add('reddit-item');
         
