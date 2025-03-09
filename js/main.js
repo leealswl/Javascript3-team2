@@ -1,4 +1,4 @@
-const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
+const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
 let gameList = [];
 
 const callAPIRelease = async () => {
