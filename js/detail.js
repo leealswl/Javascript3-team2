@@ -142,7 +142,7 @@ const render = () => {
            <div class="carousel-item active">
              <img src="${
                gameData.background_image
-             }" class="d-block w-100 h-100" alt="...">
+             }" class="d-block w-100" alt="...">
            </div>
            ${screenShotSrc
              .map(
@@ -192,7 +192,7 @@ const render = () => {
       moreHTML += `
     <div class="col">
       <div class="card">
-        <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+        <img src="${recommendList[i].background_image}" class="card-img-top" onclick="gotoDetailPage(${recommendList[i].id})">
         <div class="card-body">
           <h5 class="card-title">${recommendList[i].name}</h5>
         </div>
