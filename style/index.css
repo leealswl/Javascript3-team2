@@ -14,6 +14,7 @@ body {
     font-size: 3rem;
     font-weight: bold;
     color: #ed3c95;
+    text-decoration: none
 }
 .font {
     width: 36%;
@@ -496,3 +497,87 @@ h2.text-center {
 .like{
     color:#FF69B4
 }
+
+.pink, .play, .card {
+    display: block; 
+  }
+
+
+  @media (max-width: 768px) {
+    .pink, .play, .card {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .plans {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+ 
+
+ 
+
+  /* 모바일 화면(768px 이하)에서 2개씩 배치 */
+  @media (max-width: 768px) {
+    .info-container {
+      grid-template-columns: repeat(2, 1fr); /* 2열 */
+      border: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .image-wrapper {
+      grid-template-columns: repeat(2, 1fr); /* 2열 배치 */
+      
+    }
+    .info-box1, .info-box2, .info-box3 {
+        border: 1px solid pink;
+        border-radius: 40px;
+
+      }
+   
+
+  }
+  @media (max-width: 768px) {
+    #image-container {
+      grid-template-columns: repeat(2, 1fr); /* 2열 배치 */
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+    #image2-container{
+        display: none;
+    }
+    .text-center{
+    margin-left: -20px
+    
+    }
+    .text-section {
+        margin-left: -20px
+    }
+    .footer-container{
+        margin-left: 20px;
+    }
+  }
+  @media (max-width: 768px) {
+    .carousel-caption {
+        flex-direction: column; 
+    }
+
+    .carousel-caption h1, .carousel-caption h2 {
+        font-size: 3.5rem;
+        width: 100%;
+        display: flex;
+        
+        align-items: flex-end;
+
+        
+    }
+    .carousel-caption p  {
+        display: none;
+    }
+}
+  
+  
