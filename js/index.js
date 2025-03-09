@@ -1,6 +1,7 @@
 const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
 let gameList = [];
 
+
 const indexApi = async () => {
   try {
     let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}`);
@@ -21,7 +22,47 @@ document.getElementById("loginBtn").addEventListener("click", function () {
   window.location.href = "login.html";
 });
 
+
+let loginBtn = document.getElementById('loginBtn');
+
+    loginBtn.addEventListener('click', () => {
+      
+      loginBtn.classList.toggle('clicked');
+    });
+
+const popularApi = async(limit) => {
+    try {
+        document.getElementById("image-container").innerText = "로딩 중...";
+        let url = new URL(`https://api.rawg.io/api/developers?limit=${limit}&key=${API_KEY1}`);
+        let response = await fetch(url);
+        let data = await response.json();
+        popularList = data.results.slice(1, 5);
+        console.log("여기기", popularList);
+        document.getElementById("image-container").innerText = "";
+        popularRender();
+    } catch (error) {
+        console.error(error);
+    }
+}
+const popularApi2 = async(limit) => {
+    try {
+        document.getElementById("image2-container").innerText = "로딩 중...";
+        let url = new URL(`https://api.rawg.io/api/developers?limit=${limit}&key=${API_KEY1}`);
+        let response = await fetch(url);
+        let data = await response.json();
+
+        popularList2 = data.results.slice(5, 16);
+
+        console.log("여기2", popularList2);
+        document.getElementById("image2-container").innerText = "";
+        popularRender2();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 let loginBtn = document.getElementById("loginBtn");
+
 
 loginBtn.addEventListener("click", () => {
   loginBtn.classList.toggle("clicked");
@@ -82,11 +123,11 @@ const render = () => {
     .map((game) => {
       return `<div class="carousel-item">
             <img src="${game.background_image}" class="d-block w-500" alt="..."/>
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption d-block">
                 <h1>🎮</h1>
                 <h1>BIG EVENT !!!!</h1>
                 <h2 class="font">Noona Game 연간 멤버십 40% 할인</h2>
-                <div >game 연간 멤버십 40% 할인</div>
+                <div>새로운 게임을 출시일에 가장 먼저 플레이하세요. 이에 더해 콘솔, PC, 클라우드에서 수백 가지 고품질 게임을 즐기세요.</div>
                 <p class="lineP">*기간 한정 첫 1년간 연간 구독 할인 혜택: 2025/3/31 오후 3:59 혜택 종료. 19+ 구독 가능. 신규 및 현재 유효 멤버십 없는 재구독자 대상 한정 혜택. 추가 약관 적용
                     발로란트 시즌 1은 3월 5일, Activision Blizzard 는 3월 12일, 리그 오브 레전드 시즌 3은 3월 19일 공개 예정입니다</p>
                 <p>A game is an interactive entertainment where players follow set rules to achieve objectives and have fun. </p>
@@ -99,6 +140,8 @@ const render = () => {
 };
 
 const popularRender = () => {
+
+
   let imageContainer = document.getElementById("image-container");
 
   if (!popularList || popularList.length === 0) {
@@ -113,6 +156,7 @@ const popularRender = () => {
     .join("");
 
   imageContainer.innerHTML = popularGameList; // 기존 += 제거하여 중복 방지
+
 };
 
 popularApi(10).then(() => {
