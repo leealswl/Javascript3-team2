@@ -15,18 +15,17 @@
   <!-- 전체 상단 네브 바 -->
     <header>
       <nav class="navbar">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <div class="navbar-brand">
-            <span style="font-size: 1.8rem; color: white">🎮 Nona Game</span>
-          </div>
-          <div>
-            <button id="modeToggle" class="btn btn-light">라이트 모드</button>
-            <button id="loginBtn" class="btn btn-primary ms-2">로그인</button>
-          </div>
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="navbar-brand">
+                <span class="nona-title"> <i class="fa-solid fa-dice"></i>Noona Game</span>
+            </div>
+            <div>
+                <button id="modeToggle" class="btn btn-light">라이트 모드</button>
+                <button id="loginBtn" class="btn btn-primary ms-2">로그아웃</button>
+            </div>
         </div>
-      </nav>
+      </div>
+    </nav>
     </header>
     <!-- 본문 내용 -->
     <main class="main-container">
@@ -34,7 +33,8 @@
         <!-- 본문 안 네브바 (검색, 카테고리 등) -->
         <nav class="main-navigation-bar">
           <form onsubmit="getSearchGames(event)">
-            <input id="search" type="text" placeholder="Search games" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input class="input" id="search" type="text" placeholder="Search games" />
           </form>
           <span>Discover</span>
           <span>News</span>
@@ -116,6 +116,57 @@
         </div>
       </div>
     </section>
+    <footer>
+      <div class="footer-container">
+          <div class="footer-links">
+              <div class="footer-column">
+                  <h4>더 알아보기</h4>
+                  <ul>
+                      <li><a href="#">이용약관</a></li>
+                      <li><a href="#">개인정보 처리방침</a></li>
+                      <li><a href="#">관심 기반 광고</a></li>
+                  </ul>
+              </div>
+              <div class="footer-column">
+                  <h4>고객지원</h4>
+                  <ul>
+                      <li><a href="#">고객센터</a></li>
+                      <li><a href="#">사용 방법</a></li>
+                      <li><a href="#">Nona Game 소개</a></li>
+                  </ul>
+              </div>
+              <div class="footer-column">
+                  <h4>인기 게임</h4>
+                  <ul>
+                      <li><a href="#">엘든 링</a></li>
+                      <li><a href="#">젤다의 전설</a></li>
+                      <li><a href="#">갓 오브 워</a></li>
+                  </ul>
+              </div>
+              <div class="footer-column">
+                  <h4>컬렉션</h4>
+                  <ul>
+                      <li><a href="#">액션 & 어드벤처</a></li>
+                      <li><a href="#">RPG</a></li>
+                      <li><a href="#">호러</a></li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="footer-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          
+
+          <div class="footer-bottom">
+              
+              <p>© 2025 Nona Game. All Rights Reserved.</p>
+          </div>
+      </div>
+  </footer>
     
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
