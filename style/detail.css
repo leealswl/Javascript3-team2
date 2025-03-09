@@ -1,9 +1,20 @@
-
 body {
-  background-color: black;
-  color: rgba(255, 255, 255, 0.65);
-  font-family: sans-serif;
+  background-color: #000000;
+  color: #ffffff;
 }
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nona-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ed3c95;
+}
+
 
 #loginBtn {
   background-color: #fa397c;
@@ -26,7 +37,6 @@ body {
   color: white;
   font-size: 40px;
   font-weight: bold;
-
 }
 
 .upper-side {
@@ -110,32 +120,51 @@ body {
   opacity: 100%;
 }
 
-.pagination-button {
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  margin-top: 2em;
-  display: none;
-}
-
-@media (max-width: 500px) {
-  .pagination-button {
-    display: block;
-  }
-}
-
-.carousel-item img {
-  height: 400px;
-}
 
 .carousel-inner {
   position: relative;
+  width: 560px;
+  height:315px;
 }
 
 .carousel-item img {
-  width: 100%;
-  height: auto;
+  width: 560px;
+  height: 315px;
 }
+
+@media (max-width: 770px) {
+    .carousel{
+        width:400px;
+    }
+
+    .carousel-inner {
+        position: relative;
+        width: 400px;
+        height:315px;
+      }
+      
+      .carousel-item img {
+        width: 400px;
+        height: 315px;
+      }
+}
+
+@media (max-width: 450px) {
+    .carousel{
+        width:300px;
+    }
+    .carousel-inner {
+        position: relative;
+        width: 300px;
+        height:315px;
+      }
+      
+      .carousel-item img {
+        width: 300px;
+        height: 315px;
+      }
+}
+
 
 .change-page {
   position: absolute;

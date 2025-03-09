@@ -12,20 +12,34 @@
   <body>
     <!-- navbar -->
     <header>
-      <nav class="navbar">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <div class="navbar-brand">
-            <span style="font-size: 1.8rem; color: white">🎮 Nona Game</span>
-          </div>
-          <div>
-            <button id="modeToggle" class="btn btn-light">라이트 모드</button>
-            <button id="loginBtn" class="btn btn-primary ms-2">로그인</button>
-          </div>
+      <nav
+      class="navbar navbar-expand-lg justify-content-between align-items-center"
+    >
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <a class="nona-title" href="main.html">
+            <i class="fa-solid fa-dice"></i>Noona Game</a
+          >
         </div>
-      </nav>
-    </header>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+          <a href="login.html"><button id="loginBtn" class="btn btn-primary ms-2">로그아웃</button></a>
+        </div>
+      </div>
+    </nav>
+      </header>
+
 
     <!-- main -->
      
