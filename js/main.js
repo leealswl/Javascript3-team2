@@ -476,4 +476,5 @@ const getSearchGames = async (event) => {
   // document.getElementById("game-sys").innerHTML = "";
   // document.getElementById("drag-zone").innerHTML = "";
   document.getElementById("for-delete").innerHTML = "";
+  document.querySelector(".footer-container").innerHTML = "";
 };
