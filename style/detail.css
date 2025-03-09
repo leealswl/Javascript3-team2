@@ -246,19 +246,23 @@ body{
     font-size: 14px;
     color: rgba(255, 255, 255, .65);
 }
+.group-information li{
+    list-style: none;   
+}
 
-.group-information .information-wrap{
+.information-wrap{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.group-information .information-title{
+.information-title{
     font-size: 24px;
     color: #fff;
     line-height: 1.5;
     margin-top: 10px;
 }
-.group-information .information-list{
+.information-list{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,23 +272,23 @@ body{
     line-height: 1.5;
 }
 
-.group-information .publisher-wrap{
+.publisher-wrap{
     margin: 20px 0;
 }
 
-.group-information .genre-wrap{
+.genre-wrap{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
     margin: 20px 0;
 }
-.group-information .genre-list{
+.genre-list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
-.group-information .genre-list a{
+.genre-list a{
     display: block;
     font-size: 14px;
     text-decoration: none;
@@ -294,32 +298,140 @@ body{
     border-radius: 4px;
     transition: background-color .3s;
 }
-.group-information .genre-list a:hover{
+.genre-list a:hover{
    background-color: rgba(255, 255, 255, 0.25);
 }
 
-.group-information .tag-wrap{
+.tag-wrap{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 25px;
 }
-.group-information .tag-wrap .tag-title{
+.tag-wrap .tag-title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
     line-height: 1.5;
+    margin-bottom: 10px;
 }
-.group-information .tag-wrap .tag-list{
+.tag-wrap .tag-list{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px; 
 }
-.group-information .tag-wrap a{
-    display: block;
+.tag-wrap a{
+    display: inline-block;
     font-size: 14px;
     text-decoration: none;
-    color: inherit;
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: 8px;
-    border-radius: 4px;
-    transition: background-color .3s;
+    color: #333;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
 }
-.group-information .tag-wrap a:hover{
-    background-color: rgba(255, 255, 255, 0.25);
+.tag-wrap a:hover{
+    background-color: #FA397C;
+    border-color: #FA397C;
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+.reddit-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+.reddit-item{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    list-style-type: none;
+    padding: 20px;
+    background-color: #202024;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.reddit-item:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+.reddit-item a{
+    text-decoration: none;
+    color: inherit;
+}
+.reddit-item .post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.reddit-item .post-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    margin: 10px 0;
+}
+.reddit-item .post-info {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+.reddit-item .post-info p {
+    font-size: 14px;
+    color: #fff;
+    margin: 5px 0;
+}
+.reddit-item strong {
+    font-weight: bold;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+  
+  
+  
+  

@@ -4,19 +4,79 @@ body {
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
     margin: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+.nona-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ed3c95;
+}
+.font {
+    width: 36%;
+    font-size: 5rem;
+}
+.lineP {
+    width: 50%
+}
+.discount{
+    font-size: 4rem;
 }
 
-.light-mode {
-    background-color: white;
-    color: black;
+.dark-mode .navbar {
+    background-color: #222;
 }
+
+.dark-mode .btn-light {
+    background-color: #fff;
+    color: #000;
+}
+
+.dark-mode .btn-primary {
+    background-color: #FF69B4;
+}
+
+.dark-mode .accordion-button {
+    background-color: #444;
+    color: white;
+}
+
+.dark-mode .footer-container {
+    background-color: #111;
+    color: white;
+}
+
+.dark-mode a {
+    color: #bbb;
+}
+
+.dark-mode a:hover {
+    color: white;
+}
+
 
 .carousel-item img {
     width: 100%;
-    height: 80vh;
-    object-fit: cover;
+    height: auto;
 }
-
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.content-container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+.lineP{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 .overlay {
     position: absolute;
     top: 50%;
@@ -27,18 +87,26 @@ body {
 }
 
 .btn-custom {
-    background-color: #00A8E1;
+    background-color: #FF69B4;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
+
 }
 
 .navbar {
     display: flex;
     justify-content: end;
-    padding: 10px;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #000;
+
 }
 
 .btn-light {
@@ -50,6 +118,15 @@ body {
     background-color: black;
     color: white;
     border: 1px solid white;
+}
+.btn-primary{
+    background-color: #FF69B4;
+    color: white;
+    border: 1px solid #FF69B4;
+}
+.btn-primary:hover {
+    background-color: white;
+    color:#FF69B4;
 }
 
 .carousel-item {
@@ -73,8 +150,9 @@ body {
     z-index: 1;
 }
 .carousel {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: auto;
+    margin-top: 70px;
 }
 
 .carousel-inner,
@@ -220,8 +298,26 @@ h2.text-center {
     font-size: 14px;
 }
 
+.footer-social a {
+    color: #FF69B4; /* 핫핑크 색상 */
+    font-size: 24px; /* 아이콘 크기 조절 */
+    margin: 0 10px; /* 아이콘 간격 조절 */
+    transition: 0.3s; /* 부드러운 효과 */
+}
+
+.footer-social a:hover {
+    color: #ff1493; /* 호버 시 색상 변경 */
+}
 .footer-column ul li a:hover {
     color: #fff;
+}
+.carousel-caption h1{
+    color: #FF69B4;
+    
+}
+.carousel-caption h2 {
+    font-size: 3rem;
+    font-weight: bold;
 }
 
 .footer-social {
@@ -257,7 +353,7 @@ h2.text-center {
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: #1E90FF;
+    background-color: #FF69B4;
     text-align: center;
     padding: 10px 0;
     font-size: 18px;
@@ -300,7 +396,7 @@ h2.text-center {
 }
 
 .price {
-    background-color: #1E90FF;
+    background-color: #FF69B4;
     padding: 10px;
     border-radius: 5px;
     font-size: 18px;
@@ -308,7 +404,7 @@ h2.text-center {
 }
 
 .monthly-price {
-    border: 1px solid #1E90FF;
+    border: 1px solid #FF69B4;
     padding: 10px;
     margin-top: 10px;
     display: inline-block;
@@ -325,9 +421,74 @@ h2.text-center {
     margin: 10px 0;
 }
 
-footer {
-    margin-top: 50px;
-    text-align: center;
+.card {
+    border: none;
+    border-radius: 90%;
+    width: 90%;
+    margin-left: 30px;
+}
+
+
+.background-container {
+    background: url('https://your-background-image-url.jpg') no-repeat center center/cover;
+    height: 100vh; /* 화면 전체 높이 */
+    display: flex;
+   
     padding: 20px;
-    background-color: #222;
+}
+
+/* 그리드 컨테이너 */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2개씩 배치 */
+    gap: 40px; /* 아이콘 간격 */
+    text-align: center;
+    margin-left: -30px;
+    
+}
+
+/* 아이콘 박스 */
+.icons {
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트 위아래 정렬 */
+    align-items: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.icons img {
+    width: 70px; /* 아이콘 크기 조정 */
+    margin-bottom: 30px;
+    filter: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(500%) hue-rotate(290deg);
+}
+.icons p {
+    font-size: 20px;
+    color:#777;
+
+}
+.down{
+    padding-left: 30px;
+    margin-right: 50px;
+}
+.play{
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+
+.pink {
+    font-size: 80px; 
+    justify-content: center; 
+    align-items: center;     
+    color:#FF69B4
+}
+.text-section h1{
+    font-weight: bold;
+    padding: 20px;
+}
+
+.like{
+    color:#FF69B4
 }
