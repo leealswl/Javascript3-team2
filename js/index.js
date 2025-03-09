@@ -140,16 +140,6 @@ popularApi2(10).then(() => {
   popularRender2(); // API 호출 후 렌더링 실행
 });
 
-const modeBtn = document.getElementById("modeToggle");
-
-const changeMode = () => {
-  const body = document.body; // 단일 body 요소 가져오기
-  console.log(body); // 확인해보면 <body>...</body> 형태로 출력됨
-  body.classList.toggle("light-mode");
-};
-
-modeBtn.addEventListener("click", changeMode);
-
 // document.addEventListener("DOMContentLoaded", function () {
 //   const modeToggle = document.getElementById("modeToggle");
 //   const body = document.body;
