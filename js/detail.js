@@ -1,5 +1,5 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
-// const gameId = "4291"; // 게임 ID
+const gameId = "4291"; // 게임 ID
 
 // URL에서 gameId 가져오기
 const getGameIdFromURL = () => {
@@ -7,7 +7,7 @@ const getGameIdFromURL = () => {
   return urlParams.get("id");
 };
 // gameId 가져오기
-const gameId = getGameIdFromURL();
+// const gameId = getGameIdFromURL();
 
 
 let gameData = []; // 게임 데이터를 저장할 변수
