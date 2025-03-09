@@ -35,6 +35,11 @@
   height: 400px !important;
   object-fit: cover !important;
   border-radius: 20px !important;
+  transition: transform 1s ease !important;
+}
+
+.game-thumbnail:hover {
+  transform: scale(1.05);
 }
 .game-container {
   width: 100%;
@@ -47,18 +52,25 @@
   display: flex;
   justify-content: center;
 }
-/* 드래그 오버 시 드롭 영역 강조 */
+
 .drop-zone-active {
   border-color: #007bff;
   background-color: #e9ecef;
 }
 .drop-box {
-  width: 350px;
-  height: 400px;
+  width: 380px;
+  height: 480px;
   border: 2px dashed #aaa;
   box-sizing: border-box;
   overflow: auto; 
 }
+/* 추천 버튼 클릭 시 중앙 정렬 해제 (왼쪽 정렬) */
+.drop-box.not-centered {
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
 .drop-box .game-card,
 .drop-box .game-thumbnail {
   width: 90% !important;
@@ -82,6 +94,12 @@
 .custom-button:hover {
   background-color: pink; 
 }
+.second-section.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 .main-carousel {
   position: relative;
   overflow: hidden;
@@ -90,7 +108,7 @@
 }
 .main-carousel-inner {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 1s ease-in-out;
 }
 .main-carousel-item {
   flex: 0 0 100%;
@@ -100,6 +118,7 @@
 .main-carousel-item.active {
   display: flex;
 }
+
 /* Prev & Next 버튼 디자인 */
 .main-carousel-control {
   position: absolute;
@@ -128,31 +147,115 @@
 .main-carousel-control.next {
   right: 10px;
 }
-#recommend-section {
-  text-align: center;
+
+.recommend-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem 0;
   background-color: black;
-  padding: 20px 0;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: left;
 }
 .recommend-text {
-  color: #fff;          
-  font-size: 3rem;
-  text-transform: uppercase;
-}
-.custom-button {
-  background-color: #FA3278;
+  font-size: 4rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  opacity: 0;
+  position: relative;
+  z-index: 10;
 }
-.custom-button:hover {
-  background-color: pink; 
+.recommend-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+#game-grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.flip-card {
+  perspective: 1000px;
+  height: 400px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+  background-color: rgba(109, 109, 109, 0.6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+}
+.back-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flip-card-back p {
+  margin: 10px 0;
+}
+.flip-card-back .game-rating i {
+  font-size: 1.5rem;
+  color: gold;
+  margin-right: 0.5rem;
+}
+.front-link, .back-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+#grid-reset-btn {
+  min-width: 120px; 
+  display: inline-block;
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .recommend-section {
+    margin-left: 0;
+  }
+  .second-section {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .drop-box {
+    margin-right: 0;
+  }
 }
 @media (max-width: 768px) {
   .game-thumbnail {
@@ -177,7 +280,15 @@
     height: 35px;
     font-size: 1rem;
   }
+  .recommend-section {
+    padding: 1rem 0.5rem;
+  }
+  .recommend-text {
+    font-size: 2.5rem;
+    text-align: center;
+  }
 }
+
 /* 여기 */
 .main-container {
   display: flex;
