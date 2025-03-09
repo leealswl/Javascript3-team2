@@ -1,645 +1,621 @@
-body{
-    background-color: black;
-    color: rgba(255, 255, 255, 0.65);
-    font-family: sans-serif ;
-   
-    margin: 0;
+
+body {
+  background-color: black;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: sans-serif;
+}
+
+
+#loginBtn {
+  background-color: #fa397c;
+  border-color: #fa397c;
+}
+#loginBtn:hover {
+  opacity: 0.8;
+}
+
+#loginBtn {
+  background-color: #fa397c;
+  border-color: #fa397c;
+}
+
+#loginBtn:hover {
+  opacity: 0.8;
+}
+
+.game-name {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
 
 }
 
-.game-name{
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
+.upper-side {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3em;
 }
 
-.upper-side{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 3em;
+.detail-menu {
+  display: flex;
+  margin-top: 1.5em;
+  position: relative;
 }
 
-.detail-menu{
-    display: flex;
-    margin-top: 1.5em;
-    position: relative
+.detail-menu div {
+  color: rgba(255, 255, 255, 0.65);
+  padding-left: 0;
+  margin-right: 1em;
+  cursor: pointer;
 }
 
-.detail-menu div{
-    color: rgba(255, 255, 255, 0.65);
-    padding-left: 0;
-    margin-right: 1em;
-    cursor: pointer;
-}
-
-#under-line{
-    height: 1.5px;
-    position: absolute;
-    width: 70px;
-    left: 0px;
-    top: 24px;
-    padding: 0;
-    transition: 0.5s;
-    background-color: rgb(29, 198, 254);
+#under-line {
+  height: 1.5px;
+  position: absolute;
+  width: 70px;
+  left: 0px;
+  top: 24px;
+  padding: 0;
+  transition: 0.5s;
+  background-color: #fa397c;
 }
 
 .tab-content {
-    display: none;
-  }
-  
-  .tab-content.active {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  margin-top: 1.5em;
+}
+
+.detail-foto-slide {
+  border-radius: 25%;
+  max-width: 600px;
+  margin-top: 1.5em;
+}
+
+.slide-button {
+  display: none;
+  position: relative;
+  bottom: 175px;
+}
+
+.detail-foto-slide:hover {
+  .slide-button {
     display: block;
-    margin-top: 1.5em;
   }
-  
-
-.detail-foto-slide{
-    border-radius: 25%;
-    max-width: 600px;
-    margin-top: 1.5em;
 }
 
-
-.slide-button{
-    display: none;
-    position: relative;
-    bottom: 175px;
-
+.image-pagination {
+  max-width: 600px;
+  display: flex;
+  justify-content: space-around;
 }
 
-.detail-foto-slide:hover{
-    .slide-button{
-        display: block;
-    }
+#game-img {
+  height: 450px;
 }
 
-.image-pagination{
-    max-width: 600px;
-    display: flex;
-    justify-content: space-around;
+.game-image {
+  width: 150px;
+  background: none;
+  border: none;
+  opacity: 75%;
 }
 
-#game-img{
-    height: 450px;
+.game-image:hover {
+  width: 150px;
+  background: none;
+  border: none;
+  opacity: 100%;
 }
 
-.game-image{
-    width: 150px;
-    background: none;
-    border: none;
-    opacity: 75%;
+.pagination-button {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  margin-top: 2em;
+  display: none;
 }
 
-.game-image:hover{
-    width: 150px;
-    background: none;
-    border: none;
-    opacity: 100%;
+@media (max-width: 500px) {
+  .pagination-button {
+    display: block;
+  }
 }
 
-.pagination-button{
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    margin-top: 2em;
-    display: none;
+.carousel-item img {
+  height: 400px;
 }
 
-
-@media (max-width:500px){
-    .pagination-button{
-        display: block;
-    }
+.carousel-inner {
+  position: relative;
 }
 
-.carousel-item img{
-    height: 400px;
+.carousel-item img {
+  width: 100%;
+  height: auto;
 }
-
-.carousel-inner{
-    position: relative;
-}
-
-.carousel-item img{
-    width: 100%;
-    height: auto;
-}
-
 
 .change-page {
-    position: absolute;
-    top: 350px;
-    height: 100px;
+  position: absolute;
+  top: 350px;
+  height: 100px;
 }
 
 .change-page img {
-    width: 150px;
-    height: 70px;
+  width: 150px;
+  height: 70px;
 }
 
 .carousel-indicators [data-bs-target] {
-    width: 150px;
+  width: 150px;
 }
 
-.rating-display{
-    margin-left: .5em;
+.rating-display {
+  margin-left: 0.5em;
 }
 
 .star {
-    font-size: 15px;
-    color: gold;
-    margin-right: 3px;
+  font-size: 15px;
+  color: gold;
+  margin-right: 3px;
 }
 .half {
-    color: gold;  /* 반 개의 별도 같은 색 */
+  color: gold; /* 반 개의 별도 같은 색 */
 }
 .empty {
-    color: gold;
+  color: gold;
 }
 
-.tags{
-    color: white;
-    margin-left: 5px;
+.tags {
+  color: white;
+  margin-left: 5px;
 }
 
+.tags:hover {
+  color: #fa397c;
+}
 
 .group-information {
-    position: absolute;
-    top: 0;
-    left: 920px;
-    width: 600px;
-    max-width: 600px;
-
-.right-side{
-    margin-top: 4em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 600px;
-    text-align: center;
-    border-radius: 2.5%;
-    padding: 5px;
+  position: absolute;
+  top: 0;
+  left: 920px;
+  width: 600px;
+  max-width: 600px;
 }
 
-.more-game-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.right-side {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+  text-align: center;
+  border-radius: 2.5%;
+  padding: 5px;
 }
 
-.card{
-    text-align: center;
+.more-game-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.card h5{
-    font-size: medium;
+.card {
+  text-align: center;
+  border: none;
+  background: none;
+  color: white;
 }
 
-.card-img-top{
-    height: 165px;
+.card h5 {
+  font-size: medium;
 }
 
-
-.card:hover{
-    transform: scale(1.02);
-    transition: 0.5s;
+.card-img-top {
+  height: 165px;
 }
 
-@media (max-width: 1000px){
-    .right-side{
-        display: none;
-    }
+.card:hover {
+  transform: scale(1.02);
+  transition: 0.5s;
+  cursor: pointer;
 }
 
-@media (max-width: 700px){
-
+@media (max-width: 1000px) {
+  .right-side {
+    display: none;
+  }
 }
 
-.more-button{
+@media (max-width: 700px) {
 }
 
-.card{
-    border: none;
-    background: none;
-    color: white;
+.more-button {
 }
-
-
-
-
 
 /* 게임 정보 */
-.group-information{
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 384px);
-    text-align: left;
-    margin-top: 130px;
-    overflow-y: scroll;
-    max-height: 450px;
-    overflow-x: hidden;
+.group-information {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 384px);
+  text-align: left;
+  margin-top: 130px;
+  overflow-y: scroll;
+  max-height: 450px;
+  overflow-x: hidden;
 }
 /* 스크롤 바 숨기기 */
 .group-information::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 .group-information::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 .group-information::-webkit-scrollbar-thumb {
-    background: transparent;
+  background: transparent;
 }
-.group-information h3{
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
+.group-information h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
 }
-.group-information strong{
-    display: inline-block;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 10px;
+.group-information strong {
+  display: inline-block;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
 }
-.group-information em{
-    display: inline-block;
+.group-information em {
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+}
+.group-information li {
+  list-style: none;
+}
+.information-title {
+  font-size: 24px;
+  color: #fff;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.information-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.publisher-wrap {
+  margin: 20px 0;
+}
+
+.genre-wrap {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.genre-wrap h3 {
+  padding-left: 32px;
+}
+.genre-list a {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: inherit;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.genre-list a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.reddit-wrap h3 {
+  font-size: 20px;
+  color: #fff;
+  margin: 20px 0;
+}
+
+.reddit-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+.reddit-item {
+  position: relative;
+  width: 250px;
+  height: 350px;
+  list-style-type: none;
+  padding: 20px;
+  background-color: #202024;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.reddit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+.reddit-item a {
+  text-decoration: none;
+  color: inherit;
+}
+.reddit-item .post-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reddit-item .post-img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  margin: 10px 0;
+}
+.reddit-item .post-info {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+.reddit-item .post-info p {
+  font-size: 14px;
+  color: #fff;
+  margin: 5px 0;
+}
+.reddit-item strong {
+  font-weight: bold;
+  color: #fff;
+}
+
+.group-tag {
+  margin-top: 50px;
+}
+.tag-wrap .tag-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.tag-wrap .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tag-wrap .tag-item {
+  list-style: none;
+}
+.tag-wrap a {
+  display: inline-block;
+  font-size: 14px;
+  text-decoration: none;
+  color: #333;
+  background-color: transparent;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+.tag-wrap a:hover {
+  background-color: #fa397c;
+  border-color: #fa397c;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .group-information {
+    position: static;
+    top: auto;
+    right: auto;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    max-height: none;
+    overflow-y: auto;
+  }
+  .information-area {
+    max-width: 100%;
+  }
+  .group-information h3 {
     font-size: 14px;
-    color: rgba(255, 255, 255, .65);
-}
-.group-information li{
-    list-style: none;   
-}
-.information-title{
-    font-size: 24px;
+    font-weight: bold;
     color: #fff;
-    line-height: 1.5;
+  }
+  .group-information strong {
+    display: inline-block;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .group-information em {
+    display: inline-block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .group-information li {
+    list-style: none;
+  }
+
+  .information-title {
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.3;
     margin-top: 10px;
-}
-.information-list{
+  }
+  .information-list {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-}
+    width: 400px;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .publisher-wrap {
+    margin: 15px 0;
+  }
 
-.publisher-wrap{
-    margin: 20px 0;
-}
-
-.genre-wrap{
+  .genre-wrap {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-}
-.genre-list{
+    gap: 8px;
+    margin: 15px 0;
+  }
+  .genre-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-}
-.genre-wrap h3{
-    padding-left: 32px;
-}
-.genre-list a{
-    display: block;
+    gap: 8px;
+  }
+  .genre-wrap h3,
+  .reddit-wrap h3 {
+    padding-left: 24px;
     font-size: 14px;
+  }
+  .genre-list a {
+    display: block;
+    font-size: 12px;
     text-decoration: none;
     color: inherit;
     background-color: rgba(255, 255, 255, 0.15);
-    padding: 8px;
+    padding: 6px 12px;
     border-radius: 4px;
-    transition: background-color .3s;
-}
-.genre-list a:hover{
-   background-color: rgba(255, 255, 255, 0.25);
-}
+    transition: background-color 0.3s;
+  }
+  .genre-list a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 
-.reddit-wrap h3{
-    font-size: 20px;
-    color: #fff;
-    margin: 20px 0;
-}
-
-.reddit-list{
+  .reddit-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-top: 20px;
-}
-.reddit-item{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    width: 450px;
+  }
+  .reddit-item {
     position: relative;
-    width: 250px;
-    height: 350px;
+    width: 180px;
+    height: auto;
     list-style-type: none;
-    padding: 20px;
+    padding: 15px;
     background-color: #202024;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    margin: 0 auto;
+    padding: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.reddit-item:hover{
+  }
+  .reddit-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
-}
-.reddit-item a{
+  }
+  .reddit-item a {
     text-decoration: none;
     color: inherit;
-}
-.reddit-item .post-title {
-    font-size: 18px;
+  }
+  .reddit-item .post-title {
+    font-size: 16px;
     font-weight: bold;
     color: #fff;
-    margin: 10px 0;
+    margin: 8px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.reddit-item .post-img {
-    width: 100%;
+  }
+  .reddit-item .post-img {
+    width: 130px;
     height: auto;
-    max-height: 200px;
+    max-height: 160px;
+    margin: 8px 0;
     object-fit: cover;
-    margin: 10px 0;
-}
-.reddit-item .post-info {
+  }
+  .reddit-item .post-info {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    margin: 8px 0;
     border-radius: 8px;
-}
-.reddit-item .post-info p {
-    font-size: 14px;
-    color: #fff;
-    margin: 5px 0;
-}
-.reddit-item strong {
-    font-weight: bold;
-    color: #fff;
-}
+    padding: 0;
+  }
 
-.group-tag{
-    margin-top: 50px;
-}
-.tag-wrap .tag-title{
-    font-size: 20px;
+  .reddit-item .post-info p {
+    font-size: 12px;
+    color: #fff;
+    margin: 4px 0;
+  }
+  .reddit-item strong {
     font-weight: bold;
     color: #fff;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-.tag-wrap .tag-list{
+  }
+
+  .group-tag {
+    margin: 20px 0;
+  }
+  .tag-wrap .tag-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    padding-left: 32px;
+  }
+  .tag-wrap .tag-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; 
-}
-.tag-wrap .tag-item{
+    gap: 8px;
+    width: 450px;
+  }
+  .tag-wrap .tag-item {
     list-style: none;
-}
-.tag-wrap a{
+  }
+  .tag-wrap a {
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     text-decoration: none;
     color: #333;
     background-color: transparent;
-    padding: 10px 20px;
+    padding: 6px 12px;
     border-radius: 30px;
     font-weight: bold;
     text-transform: uppercase;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-in-out;
-}
-.tag-wrap a:hover{
-    background-color: #FA397C;
-    border-color: #FA397C;
+  }
+  .tag-wrap a:hover {
+    background-color: #fa397c;
+    border-color: #fa397c;
     color: #fff;
     transform: translateY(-4px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
 }
-
-
-@media (max-width: 768px) {
-    .group-information{
-        position: static;
-        top: auto;
-        right: auto;
-        display: block;
-        width: 100%;
-        margin-top: 20px;
-        max-height: none;
-        overflow-y: auto;
-    }
-    .information-area {
-        max-width: 100%;
-    }
-    .group-information h3 {
-        font-size: 14px;
-        font-weight: bold;
-        color: #fff;
-    }
-    .group-information strong{
-        display: inline-block;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 8px;
-    }
-    .group-information em{
-        display: inline-block;
-        font-size: 12px;
-        color: rgba(255, 255, 255, .65);
-    }
-    .group-information li{
-        list-style: none;
-    }
-
-    .information-title{
-        font-size: 20px;
-        color: #fff;
-        line-height: 1.3;
-        margin-top: 10px;
-    }
-    .information-list{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 400px;
-        gap: 12px;
-        margin-top: 12px;
-        font-size: 14px;
-        line-height: 1.3;
-    }
-    .publisher-wrap{
-        margin: 15px 0;
-    }
-
-    .genre-wrap{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 15px 0;
-    }
-    .genre-list{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    .genre-wrap h3,
-    .reddit-wrap h3 {
-        padding-left: 24px;
-        font-size: 14px;
-    }
-    .genre-list a{
-        display: block;
-        font-size: 12px;
-        text-decoration: none;
-        color: inherit;
-        background-color: rgba(255, 255, 255, 0.15);
-        padding: 6px 12px;
-        border-radius: 4px;
-        transition: background-color .3s;
-    }
-    .genre-list a:hover{
-        background-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .reddit-list{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 15px;
-        width: 450px;
-    }
-    .reddit-item{
-        position: relative;
-        width: 180px;
-        height: auto;
-        list-style-type: none;
-        padding: 15px;
-        background-color: #202024;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        margin: 0 auto;
-        padding: 10px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .reddit-item:hover{
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
-    }
-    .reddit-item a{
-        text-decoration: none;
-        color: inherit;
-    }
-    .reddit-item .post-title{
-        font-size: 16px;
-        font-weight: bold;
-        color: #fff;
-        margin: 8px 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .reddit-item .post-img{
-        width: 130px;
-        height: auto;
-        max-height: 160px;
-        margin: 8px 0;
-        object-fit: cover;
-    }
-    .reddit-item .post-info{
-        width: 100%;
-        margin: 8px 0;
-        border-radius: 8px;
-        padding: 0;
-    }
-
-    .reddit-item .post-info p{
-        font-size: 12px;
-        color: #fff;
-        margin: 4px 0;
-    }
-    .reddit-item strong{
-        font-weight: bold;
-        color: #fff;
-    }
-
-    .group-tag{
-        margin: 20px 0;
-    }
-    .tag-wrap .tag-title{
-        font-size: 14px;
-        font-weight: bold;
-        color: #fff;
-        line-height: 1.3;
-        margin-bottom: 8px;
-        padding-left: 32px;
-    }
-    .tag-wrap .tag-list{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        width: 450px;
-    }
-    .tag-wrap .tag-item{
-        list-style: none;
-    }
-    .tag-wrap a{
-        display: inline-block;
-        font-size: 12px;
-        text-decoration: none;
-        color: #333;
-        background-color: transparent;
-        padding: 6px 12px;
-        border-radius: 30px;
-        font-weight: bold;
-        text-transform: uppercase;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease-in-out;
-    }
-    .tag-wrap a:hover{
-        background-color: #FA397C;
-        border-color: #FA397C;
-        color: #fff;
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
-  
-
-
-
-
-
-
-  
-  
-
-
-  
-  
-  
-  
