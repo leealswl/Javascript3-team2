@@ -410,3 +410,18 @@ footer {
 .fa-solid {
   color: #ff69b4;
 }
+@media (max-width: 900px) {
+  .main-banner__sub-area__item img {
+    display: none; /* 작은 화면에서는 숨김 */
+  }
+}
+
+@media (max-width: 600px) {
+  .main-banner__sub-area {
+    display: none;
+  }
+  .main-banner {
+    display: flex;
+    justify-content: center;
+  }
+}
