@@ -1,5 +1,8 @@
 AOS.init();
-const API_KEY1 = `9487a4535e60442eb301ed9ec7f83dfa`;
+
+const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
+
+
 let gameList = [];
 
 const callAPIRelease = async () => {
@@ -461,7 +464,7 @@ const getSearchGames = async (event) => {
         ${games
           .map(
             (game) => `
-            <div class="search-result col-lg-3" data-aos="fade-up">
+            <div class="search-result col-md-6 col-lg-3" data-aos="fade-up">
               <img  onclick="gotoDetailPage(${game.id})"src="${game.background_image}" alt="${game.name}">
               <p>${game.name}</p>
             </div>`
@@ -476,4 +479,5 @@ const getSearchGames = async (event) => {
   // document.getElementById("game-sys").innerHTML = "";
   // document.getElementById("drag-zone").innerHTML = "";
   document.getElementById("for-delete").innerHTML = "";
+  document.querySelector(".footer-container").innerHTML = "";
 };
