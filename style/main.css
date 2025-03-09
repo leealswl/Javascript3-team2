@@ -14,7 +14,7 @@
   text-align: center;
 }
 .game-card {
-  flex: 0 0 calc((100% - 40px) / 5);  
+  flex: 0 0 calc((100% - 40px) / 5);
   max-width: calc((100% - 40px) / 5);
   text-align: center;
   padding: 10px;
@@ -44,7 +44,7 @@
 .game-container {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
@@ -62,7 +62,7 @@
   height: 480px;
   border: 2px dashed #aaa;
   box-sizing: border-box;
-  overflow: auto; 
+  overflow: auto;
 }
 /* 추천 버튼 클릭 시 중앙 정렬 해제 (왼쪽 정렬) */
 .drop-box.not-centered {
@@ -81,7 +81,7 @@
   display: block;
 }
 .custom-button {
-  background-color: #FA3278;
+  background-color: #fa3278;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -92,7 +92,7 @@
   transition: background-color 0.3s ease;
 }
 .custom-button:hover {
-  background-color: pink; 
+  background-color: pink;
 }
 .second-section.container {
   padding-left: 0 !important;
@@ -164,6 +164,7 @@
   margin-bottom: 20px;
   width: 100%;
   color: #fff;
+
   text-transform: uppercase;
   opacity: 0;
   position: relative;
@@ -230,7 +231,8 @@
   color: gold;
   margin-right: 0.5rem;
 }
-.front-link, .back-link {
+.front-link,
+.back-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -238,7 +240,7 @@
   color: inherit;
 }
 #grid-reset-btn {
-  min-width: 120px; 
+  min-width: 120px;
   display: inline-block;
   text-align: center;
 }
@@ -312,18 +314,27 @@
 /* 메인 배너 */
 .main-banner {
   display: flex;
-  height: 50vh;
+  height: 60vh;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 /* 배너 이미지 영역 */
 .main-banner__banner-img-area {
   width: 70%;
   height: 100%;
-  img {
+  box-shadow: 0 8px 16px rgba(128, 128, 128, 0.8);
+  div {
     width: 100%;
     height: 100%;
     border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    p {
+      font-size: 3rem;
+    }
   }
 }
 
@@ -341,9 +352,16 @@
     &:hover {
       background-color: #28282c;
       transition: 0.3s ease-in-out;
+      color: var(--pink-color);
     }
     img {
       border-radius: 10px;
+    }
+
+    span {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
   .clicked {
@@ -360,6 +378,8 @@
 
 .focus {
   background-color: #28282c;
+  color: var(--pink-color);
+  transition: 0.3s ease-in-out;
 }
 
 .search-result {
@@ -368,5 +388,10 @@
     width: 100%;
     aspect-ratio: 1/1;
     margin: 5% 5%;
+    &:hover {
+      scale: 1.1;
+      transition: 0.3s ease-in-out;
+      border-radius: 20px;
+    }
   }
 }
