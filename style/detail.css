@@ -453,15 +453,16 @@ a {
 }
 
 @media (max-width: 768px) {
+  .upper-side{
+    flex-direction: column;
+    gap: 10px;
+  }
+  
   .group-information {
-    position: static;
-    top: auto;
-    right: auto;
-    display: block;
+    order: 2;
     width: 100%;
     margin-top: 20px;
     max-height: none;
-    overflow-y: auto;
   }
   .information-area {
     max-width: 100%;
