@@ -1,12 +1,19 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
+// const gameId = "4291"; // 게임 ID
+
 
 // URL에서 gameId 가져오기
 const getGameIdFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 };
+
+// gameId 가져오기
+
 // // gameId 가져오기
+
 const gameId = getGameIdFromURL();
+
 
 let gameData = []; // 게임 데이터를 저장할 변수
 let gameTags = []; // 해당 게임의 태그 데이터를 저장할 변수
@@ -219,11 +226,8 @@ const displayGameDetails = (game) => {
   const gameInformation = document.getElementById("game-information");
 
   gameInformation.innerHTML = `
-        <h3 class="information-title">${game.name}</h3>
+        
         <ul class="information-list">
-            <li><strong>Description :</strong> <em>${
-              game.description_raw || "No description available."
-            }</em></li>
             <li><strong>Platforms :</strong>&nbsp;&nbsp;<em>${
               game.platforms
                 ? game.platforms
@@ -232,13 +236,16 @@ const displayGameDetails = (game) => {
                 : "Information not available"
             }</em></li>
             <li><strong>Game Series :</strong>&nbsp;&nbsp;<em>${
-              game.game_series_count || "None"
+                game.game_series_count || "None"
             }</em></li>
             <li><strong>Release Date :</strong>&nbsp;&nbsp;<em>${
-              game.released || "TBD"
+                game.released || "TBD"
             }</em></li>
             <li><strong>Metacritic Score :</strong>&nbsp;&nbsp;<em>${
-              game.metacritic || "Information not available"
+                game.metacritic || "Information not available"
+            }</em></li>
+            <li><strong>Description :</strong> <em>${
+                game.description_raw || "No description available."
             }</em></li>
             </ul>`;
 };
@@ -316,6 +323,27 @@ const displayCreator = (creator) => {
     creatorWrap.innerHTML = `<p>No creator data available.</p>`;
   }
 };
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const posts = [
+        {
+            title: 'Title of the Reddit Post',
+            url: 'https://example.com',
+            image: 'https://via.placeholder.com/350x200',
+            created: '2025-03-08',
+            username: 'username',
+            description: 'This is the description of the post...'
+        },
+    ];
+
+    const redditList = document.querySelector('.reddit-list');
+
+    posts.forEach(post => {
+        const postItem = document.createElement('li');
+        postItem.classList.add('reddit-item');
+
+        postItem.innerHTML = `
 
 const moreGames = async () => {
   let genre = "";
@@ -406,6 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     postItem.classList.add("reddit-item");
 
     postItem.innerHTML = `
+
             <a href="${post.url}" target="_blank" class="post-link">
                 <p class="post-title">${post.title}</p>
             </a>
@@ -436,6 +465,26 @@ const getRedditPosts = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+
+        const data = await response.json();
+        console.log("Reddit Posts:", data.results);
+
+        const postsContainer = document.querySelector('.reddit-list');
+        postsContainer.innerHTML = ''; // 기존 내용 초기화
+
+        data.results.slice(0, 8).forEach(post => {  // 최대 9개만 표시
+            const postElement = document.createElement('li');
+            postElement.classList.add('reddit-item');
+        
+            // 전체 포스트를 감싸는 a 태그
+            const linkElement = document.createElement('a');
+            linkElement.href = post.url;
+            linkElement.target = '_blank';
+            linkElement.classList.add('post-link');
+        
+            // 링크 안에 포스트 내용 넣기
+            linkElement.innerHTML = `
+
     const data = await response.json();
     console.log("Reddit Posts:", data.results);
 
@@ -455,6 +504,7 @@ const getRedditPosts = async () => {
 
       // 링크 안에 포스트 내용 넣기
       linkElement.innerHTML = `
+
                 <p class="post-title">${post.name}</p>
                 ${
                   post.image
