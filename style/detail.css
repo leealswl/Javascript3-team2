@@ -1,8 +1,10 @@
+
 body {
   background-color: black;
   color: rgba(255, 255, 255, 0.65);
   font-family: sans-serif;
 }
+
 
 #loginBtn {
   background-color: #fa397c;
@@ -25,6 +27,7 @@ body {
   color: white;
   font-size: 40px;
   font-weight: bold;
+
 }
 
 .upper-side {

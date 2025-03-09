@@ -301,6 +301,7 @@
   #div-container {
     width: 100%;
   }
+  margin-top: 80px;
 }
 
 .main-navigation-bar {
@@ -394,4 +395,18 @@
       border-radius: 20px;
     }
   }
+}
+
+
+.input {
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px
+  
+  
+}
+.fa-solid{
+  color: #FF69B4;
+
 }
