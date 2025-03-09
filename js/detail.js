@@ -22,11 +22,17 @@ let creatorData = []; // 게임의 크리에이터 데이터를 저장할 변수
 let redditData = [];
 
 let mode = "overview";
+
 let url = new URL(`https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`); // url 주소소
 
 let recommendList = [];
 let screenShotList = [];
 let screenShotSrc = [];
+
+//상세페이지 이동
+const gotoDetailPage = (id) => {
+  window.location.href = `detail.html?id=${id}`;
+};
 
 // category underline
 let menus = document.querySelectorAll(".detail-menu div");
@@ -35,6 +41,7 @@ let underLine = document.getElementById("under-line");
 menus.forEach((menu) =>
   menu.addEventListener("click", (e) => underlineIndicator(e))
 );
+
 
 for (let i = 1; i < menus.length; i++) {
   menus[i].addEventListener("click", function (event) {
@@ -92,7 +99,9 @@ const fetchGameDetails = async (gameId) => {
   try {
     // 게임 정보 API 호출
     const gameResponse = await fetch(`
-      https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`);
+      https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
+    );
+
     gameData = await gameResponse.json();
     // 게임의 태그 목록을 가져옵니다.
     gameTags = gameData.tags || [];
@@ -123,6 +132,7 @@ const render = () => {
          <h2 class="game-name">${gameData?.name || "game"}</h2>
          <span>${gameData?.rating}</span>
          <span class="rating-display" data-rating="${gameData.rating}"></span>
+
          <span class="tags"># ${gameData?.tags[0]?.name || ""}</span>
          <span class="tags"># ${gameData?.tags[1]?.name || ""}</span>
          </div>`;
@@ -190,13 +200,14 @@ const render = () => {
       </div>
     </div>
   `;
-    }
-  } else {
-    for (let i = 0; i < 12; i++) {
-      moreHTML += `
+}
+} else{
+  for (let i = 0; i < 12; i++) {
+    moreHTML += `
       <div class="col">
         <div class="card">
-          <img src="${recommendList[i].background_image}" class="card-img-top" alt="...">
+          <img src="${recommendList[i].background_image}" class="card-img-top" onclick="gotoDetailPage(${recommendList[i].id})">
+
           <div class="card-body">
             <h5 class="card-title">${recommendList[i].name}</h5>
           </div>
@@ -206,6 +217,7 @@ const render = () => {
     }
   }
   moreHTML += `</div>`;
+
 
   document.getElementById("game-title").innerHTML = resultHTML;
   document.getElementById("game-img").innerHTML = imgHTML;
@@ -247,6 +259,7 @@ const displayGameDetails = (game) => {
             <li><strong>Description :</strong> <em>${
                 game.description_raw || "No description available."
             }</em></li>
+
             </ul>`;
 };
 
@@ -299,6 +312,7 @@ const displayPublisher = (publisher) => {
                 <li class="publisher-item"><strong>Games Published :</strong>&nbsp;&nbsp;<em>${
                   publisher.games_count || "No games available"
                 }</em></li>
+
             </ul>`;
   } else {
     publisherWrap.innerHTML = `<p>No publisher data available.</p>;`;
@@ -318,12 +332,12 @@ const displayCreator = (creator) => {
                 <li class="creator-item"><strong>Games Created :</strong>&nbsp;&nbsp;<em>${
                   creator.games_count || "No games available"
                 }</em></li>
+
             </ul>`;
   } else {
     creatorWrap.innerHTML = `<p>No creator data available.</p>`;
   }
 };
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const posts = [
@@ -361,9 +375,7 @@ const moreGames = async () => {
   }
 
   try {
-    const gameListUrl = new URL(
-      `https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`
-    );
+    const gameListUrl = new URL(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`);
     let response = await fetch(gameListUrl);
     let data = await response.json();
     gameList = data.results;
@@ -373,6 +385,7 @@ const moreGames = async () => {
 
       // genres 배열이 있는지 체크 후 비교
       if (game.genres && game.genres.length > 0 && gameId != game.id) {
+
         for (let j = 0; j < game.genres.length; j++) {
           // `j`로 변경
           if (game.genres[j].name === genre) {
@@ -532,18 +545,18 @@ const getRedditPosts = async () => {
 getRedditPosts();
 
 const screenShot = async () => {
-  const screenShotUrl = new URL(
-    `https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`
-  );
-  let response = await fetch(screenShotUrl);
-  let shots = await response.json();
-  screenShotList = shots.results;
 
-  for (let i = 0; i < screenShotList.length; i++) {
-    screenShotSrc.push(screenShotList[i].image);
-  }
-  console.log(screenShotSrc);
-  render();
-};
+    const screenShotUrl = new URL (`https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`)
+    let response = await fetch(screenShotUrl)
+    let shots = await response.json();
+    screenShotList = shots.results
 
-screenShot();
+    for (let i=0; i<screenShotList.length; i++){
+      screenShotSrc.push(screenShotList[i].image)
+    }
+    console.log(screenShotSrc)
+    render()
+}
+
+screenShot()
+

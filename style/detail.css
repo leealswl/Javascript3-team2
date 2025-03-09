@@ -2,10 +2,17 @@ body{
     background-color: black;
     color: rgba(255, 255, 255, 0.65);
     font-family: sans-serif ;
-    width: 1320px;
-    margin: 0 auto;
     margin: 0;
 
+}
+
+#loginBtn{
+    background-color: #FA397C;
+    border-color: #FA397C;
+}
+
+#loginBtn:hover{
+    opacity: 0.8;
 }
 
 
@@ -43,7 +50,7 @@ body{
     top: 24px;
     padding: 0;
     transition: 0.5s;
-    background-color: rgb(29, 198, 254);
+    background-color: #FA397C;
 }
 
 .tab-content {
@@ -165,6 +172,9 @@ body{
     margin-left: 5px;
 }
 
+.tags:hover{
+    color: #FA397C;
+}
 
 .group-information {
     position: absolute;
@@ -192,6 +202,9 @@ body{
 
 .card{
     text-align: center;
+    border: none;
+    background: none;
+    color: white;
 }
 
 .card h5{
@@ -206,6 +219,7 @@ body{
 .card:hover{
     transform: scale(1.02);
     transition: 0.5s;
+    cursor: pointer;
 }
 
 @media (max-width: 1000px){
@@ -220,16 +234,6 @@ body{
 
 .more-button{
 }
-
-.card{
-    border: none;
-    background: none;
-    color: white;
-}
-
-
-
-
 
 /* 게임 정보 */
 .group-information{
