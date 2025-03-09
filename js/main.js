@@ -324,30 +324,6 @@ const getGameData = async () => {
 };
 getGameData();
 
-const changeBanner = async (id, element) => {
-  const url = new URL(`https://api.rawg.io/api/games/${id}?key=${API_KEY1}`);
-  const response = await fetch(url);
-  const data = await response.json();
-  // console.log("dddd", data);
-  document.querySelector(
-    ".main-banner__banner-img-area"
-  ).innerHTML = `<img onclick="gotoDetailPage(${id})" src=${data.background_image}>`;
-
-  // 기존 active 클래스스가 적용된 모든 요소에서 active 제거
-  document
-    .querySelectorAll(".main-banner__sub-area__item")
-    .forEach((item) => item.classList.remove("focus"));
-
-  // 현재 클릭한 요소에 active 추가 (자동 슬라이드일 경우 element가 null일수도 있음)
-  if (element) {
-    element.classList.add("focus");
-  } else {
-    document
-      .querySelector(".main-banner__sub-area__item")
-      [currentIndex].classList.add("focus");
-  }
-};
-
 const renderBanner = () => {
   let bannerHTML = ``;
 

@@ -1,7 +1,5 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
 
-// const gameId = "4291"; // 게임 ID
-
 // URL에서 gameId 가져오기
 const getGameIdFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -89,7 +87,6 @@ const fetchGameDetails = async (gameId) => {
     const gameResponse = await fetch(`
       https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`);
     gameData = await gameResponse.json();
-
     // 게임의 태그 목록을 가져옵니다.
     gameTags = gameData.tags || [];
 
@@ -102,25 +99,26 @@ const fetchGameDetails = async (gameId) => {
     if (gameData.developers && gameData.developers.length > 0) {
       creatorData = gameData.developers[0];
     }
+    console.log("게임정보:", gameData);
 
     // 데이터를 받아온 후 화면을 다시 렌더링
     render();
-
-    console.log("게임정보:", gameData);
   } catch (error) {
     console.error("게임 정보와 태그를 가져오는 중 오류 발생:", error);
   }
 };
+// 초기 데이터 요청
+fetchGameDetails(gameId);
 
 const render = () => {
   const resultHTML = `
        <div>
-         <h2 class="game-name">${gameData.name || "game"}</h2>
-         <span>${gameData.rating}</span>
+         <h2 class="game-name">${gameData?.name || "game"}</h2>
+         <span>${gameData?.rating}</span>
          <span class="rating-display" data-rating="${gameData.rating}"></span>
-         <span class="tags"># ${gameData.tags[0].name}</span>
-         <span class="tags"># ${gameData.tags[1].name}</span>
-       </div>`;
+         <span class="tags"># ${gameData?.tags[0]?.name || ""}</span>
+         <span class="tags"># ${gameData?.tags[1]?.name || ""}</span>
+         </div>`;
 
   const imgHTML = `
        <div id="carouselExampleIndicators" class="carousel slide detail-foto-slide">
@@ -128,7 +126,7 @@ const render = () => {
            <div class="carousel-item active">
              <img src="${
                gameData.background_image
-             }" class="d-block w-100" alt="...">
+             }" class="d-block w-100 h-100" alt="...">
            </div>
            ${screenShotSrc
              .map(
@@ -153,23 +151,23 @@ const render = () => {
      
          <div class="carousel-indicators change-page">
            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 1">
-             <img src="${
-               gameData.background_image
-             }" class="d-block w-100" alt="...">
-           </button>
-           ${screenShotSrc
-             .map(
-               (screen, index) => `
-               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${
-                 index + 1
-               }" aria-label="Slide ${index + 2}">
-                 <img src="${screen}" class="d-block w-100" alt="...">
-               </button>`
-             )
-             .join("")}
-         </div>
-       </div>
-     `;
+           <img src="${
+             gameData.background_image
+           }" class="d-block w-100" alt="...">
+            </button>
+            ${screenShotSrc
+              .map(
+                (screen, index) => `
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${
+                  index + 1
+                }" aria-label="Slide ${index + 2}">
+                  <img src="${screen}" class="d-block w-100" alt="...">
+                  </button>`
+              )
+              .join("")}
+                </div>
+                </div>
+                `;
 
   let moreHTML = `<div class="row row-cols-3 g-3 more-games-container">`;
 
@@ -242,7 +240,7 @@ const displayGameDetails = (game) => {
             <li><strong>Metacritic Score :</strong>&nbsp;&nbsp;<em>${
               game.metacritic || "Information not available"
             }</em></li>
-        </ul>`;
+            </ul>`;
 };
 
 // 장르 정보를 HTML에 표시하는 함수
@@ -319,9 +317,6 @@ const displayCreator = (creator) => {
   }
 };
 
-// 초기 데이터 요청
-fetchGameDetails(gameId);
-
 const moreGames = async () => {
   let genre = "";
   let gameList = [];
@@ -394,12 +389,12 @@ getGameInfo();
 document.addEventListener("DOMContentLoaded", () => {
   const posts = [
     {
-      title: "Title of the Reddit Post",
-      url: "https://example.com",
-      image: "https://via.placeholder.com/350x200",
-      created: "2025-03-08",
-      username: "username",
-      description: "This is the description of the post...",
+      // title: "Title of the Reddit Post",
+      // url: "https://example.com",
+      // // image: "https://via.placeholder.com/350x200",
+      // created: "2025-03-08",
+      // username: "username",
+      // description: "This is the description of the post...",
     },
     // 다른 게시물 데이터를 여기에 추가할 수 있습니다.
   ];
