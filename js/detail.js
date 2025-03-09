@@ -1,6 +1,6 @@
 const API_KEY = "537786cf19164215ba386fb47bd70c9c"; // API 키
 
-
+gameId = `4291`;
 
 
 // URL에서 gameId 가져오기
@@ -323,26 +323,6 @@ const displayCreator = (creator) => {
 };
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const posts = [
-        {
-            title: 'Title of the Reddit Post',
-            url: 'https://example.com',
-            image: 'https://via.placeholder.com/350x200',
-            created: '2025-03-08',
-            username: 'username',
-            description: 'This is the description of the post...'
-        },
-    ];
-
-    const redditList = document.querySelector('.reddit-list');
-
-    posts.forEach(post => {
-        const postItem = document.createElement('li');
-        postItem.classList.add('reddit-item');
-
-        postItem.innerHTML = `
-
 const moreGames = async () => {
   let genre = "";
   let gameList = [];
@@ -454,6 +434,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const getRedditPosts = async () => {
+  if (typeof gameId === "undefined" || typeof API_KEY === "undefined") {
+    console.error("gameId 또는 API_KEY가 정의되지 않았습니다.");
+    return;
+  }
+
   console.log("게임 ID:", gameId);
   const url = `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`;
 
@@ -463,34 +448,13 @@ const getRedditPosts = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-
-        const data = await response.json();
-        console.log("Reddit Posts:", data.results);
-
-        const postsContainer = document.querySelector('.reddit-list');
-        postsContainer.innerHTML = ''; // 기존 내용 초기화
-
-        data.results.slice(0, 8).forEach(post => {  // 최대 9개만 표시
-            const postElement = document.createElement('li');
-            postElement.classList.add('reddit-item');
-        
-            // 전체 포스트를 감싸는 a 태그
-            const linkElement = document.createElement('a');
-            linkElement.href = post.url;
-            linkElement.target = '_blank';
-            linkElement.classList.add('post-link');
-        
-            // 링크 안에 포스트 내용 넣기
-            linkElement.innerHTML = `
-
     const data = await response.json();
     console.log("Reddit Posts:", data.results);
 
     const postsContainer = document.querySelector(".reddit-list");
     postsContainer.innerHTML = ""; // 기존 내용 초기화
 
-    data.results.slice(0, 9).forEach((post) => {
-      // 최대 9개만 표시
+    data.results.slice(0, 8).forEach((post) => {
       const postElement = document.createElement("li");
       postElement.classList.add("reddit-item");
 
@@ -502,24 +466,20 @@ const getRedditPosts = async () => {
 
       // 링크 안에 포스트 내용 넣기
       linkElement.innerHTML = `
-
-                <p class="post-title">${post.name}</p>
-                ${
-                  post.image
-                    ? `<img class="post-img" src="${post.image}" alt="${post.name}" />`
-                    : ""
-                }
-                <div class="post-info">
-                    <p><strong>Created:</strong> ${new Date(
-                      post.created
-                    ).toLocaleString()}</p>
-                    <p><strong>Posted by:</strong> ${post.username}</p>
-                </div>
-            `;
+        <p class="post-title">${post.name}</p>
+        ${
+          post.image
+            ? `<img class="post-img" src="${post.image}" alt="${post.name}" />`
+            : ""
+        }
+        <div class="post-info">
+            <p><strong>Created:</strong> ${new Date(post.created).toLocaleString()}</p>
+            <p><strong>Posted by:</strong> ${post.username}</p>
+        </div>
+      `;
 
       // 전체 포스트를 linkElement 안에 삽입
       postElement.appendChild(linkElement);
-
       postsContainer.appendChild(postElement);
     });
   } catch (error) {
@@ -529,9 +489,86 @@ const getRedditPosts = async () => {
 
 getRedditPosts();
 
+
+// const getRedditPosts = async () => {
+//   console.log("게임 ID:", gameId);
+//   const url = `https://api.rawg.io/api/games/${gameId}/reddit?key=${API_KEY}`;
+
+//   try {
+//     const response = await fetch(url);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+
+//         const data = await response.json();
+//         console.log("Reddit Posts:", data.results);
+
+//         const postsContainer = document.querySelector('.reddit-list');
+//         postsContainer.innerHTML = ''; // 기존 내용 초기화
+
+//         data.results.slice(0, 8).forEach(post => {  // 최대 9개만 표시
+//             const postElement = document.createElement('li');
+//             postElement.classList.add('reddit-item');
+        
+//             // 전체 포스트를 감싸는 a 태그
+//             const linkElement = document.createElement('a');
+//             linkElement.href = post.url;
+//             linkElement.target = '_blank';
+//             linkElement.classList.add('post-link');
+        
+//             // 링크 안에 포스트 내용 넣기
+//             linkElement.innerHTML = `
+
+//     const data = await response.json();
+//     console.log("Reddit Posts:", data.results);
+
+//     const postsContainer = document.querySelector(".reddit-list");
+//     postsContainer.innerHTML = ""; // 기존 내용 초기화
+
+//     data.results.slice(0, 9).forEach((post) => {
+//       // 최대 9개만 표시
+//       const postElement = document.createElement("li");
+//       postElement.classList.add("reddit-item");
+
+//       // 전체 포스트를 감싸는 a 태그
+//       const linkElement = document.createElement("a");
+//       linkElement.href = post.url;
+//       linkElement.target = "_blank";
+//       linkElement.classList.add("post-link");
+
+//       // 링크 안에 포스트 내용 넣기
+//       linkElement.innerHTML = `
+
+//                 <p class="post-title">${post.name}</p>
+//                 ${
+//                   post.image
+//                     ? `<img class="post-img" src="${post.image}" alt="${post.name}" />`
+//                     : ""
+//                 }
+//                 <div class="post-info">
+//                     <p><strong>Created:</strong> ${new Date(
+//                       post.created
+//                     ).toLocaleString()}</p>
+//                     <p><strong>Posted by:</strong> ${post.username}</p>
+//                 </div>
+//             `;
+
+//       // 전체 포스트를 linkElement 안에 삽입
+//       postElement.appendChild(linkElement);
+
+//       postsContainer.appendChild(postElement);
+//     });
+//   } catch (error) {
+//     console.error("데이터 가져오기 실패:", error);
+//   }
+// };
+
+// getRedditPosts();
+
 const screenShot = async () => {
   const screenShotUrl = new URL(
-    `https://api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`
+    `https:api.rawg.io/api/games/${gameId}/screenshots?key=${API_KEY}`
   );
   let response = await fetch(screenShotUrl);
   let shots = await response.json();
@@ -543,5 +580,6 @@ const screenShot = async () => {
   console.log(screenShotSrc);
   render();
 };
+    
 
 screenShot();
