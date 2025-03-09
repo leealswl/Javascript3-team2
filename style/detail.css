@@ -315,10 +315,6 @@ a {
   line-height: 1.5;
 }
 
-.publisher-wrap {
-  margin: 20px 0;
-}
-
 .genre-wrap {
   display: flex;
   flex-direction: column;
@@ -457,7 +453,7 @@ a {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .group-information {
     order: 2;
     width: 100%;
