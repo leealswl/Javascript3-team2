@@ -1,7 +1,6 @@
 const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
 let gameList = [];
 
-
 const indexApi = async () => {
   try {
     let url = new URL(`https://api.rawg.io/api/games?key=${API_KEY1}`);
@@ -22,47 +21,7 @@ document.getElementById("loginBtn").addEventListener("click", function () {
   window.location.href = "login.html";
 });
 
-
-let loginBtn = document.getElementById('loginBtn');
-
-    loginBtn.addEventListener('click', () => {
-      
-      loginBtn.classList.toggle('clicked');
-    });
-
-const popularApi = async(limit) => {
-    try {
-        document.getElementById("image-container").innerText = "로딩 중...";
-        let url = new URL(`https://api.rawg.io/api/developers?limit=${limit}&key=${API_KEY1}`);
-        let response = await fetch(url);
-        let data = await response.json();
-        popularList = data.results.slice(1, 5);
-        console.log("여기기", popularList);
-        document.getElementById("image-container").innerText = "";
-        popularRender();
-    } catch (error) {
-        console.error(error);
-    }
-}
-const popularApi2 = async(limit) => {
-    try {
-        document.getElementById("image2-container").innerText = "로딩 중...";
-        let url = new URL(`https://api.rawg.io/api/developers?limit=${limit}&key=${API_KEY1}`);
-        let response = await fetch(url);
-        let data = await response.json();
-
-        popularList2 = data.results.slice(5, 16);
-
-        console.log("여기2", popularList2);
-        document.getElementById("image2-container").innerText = "";
-        popularRender2();
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 let loginBtn = document.getElementById("loginBtn");
-
 
 loginBtn.addEventListener("click", () => {
   loginBtn.classList.toggle("clicked");
@@ -76,7 +35,7 @@ const popularApi = async (limit) => {
     );
     let response = await fetch(url);
     let data = await response.json();
-    popularList = data.results.slice(1, 4);
+    popularList = data.results.slice(1, 5);
     console.log("여기기", popularList);
     document.getElementById("image-container").innerText = "";
     popularRender();
@@ -140,8 +99,6 @@ const render = () => {
 };
 
 const popularRender = () => {
-
-
   let imageContainer = document.getElementById("image-container");
 
   if (!popularList || popularList.length === 0) {
@@ -156,7 +113,6 @@ const popularRender = () => {
     .join("");
 
   imageContainer.innerHTML = popularGameList; // 기존 += 제거하여 중복 방지
-
 };
 
 popularApi(10).then(() => {
@@ -183,16 +139,6 @@ popularApi2(10).then(() => {
   console.log("popularList2:", popularList2);
   popularRender2(); // API 호출 후 렌더링 실행
 });
-
-const modeBtn = document.getElementById("modeToggle");
-
-const changeMode = () => {
-  const body = document.body; // 단일 body 요소 가져오기
-  console.log(body); // 확인해보면 <body>...</body> 형태로 출력됨
-  body.classList.toggle("light-mode");
-};
-
-modeBtn.addEventListener("click", changeMode);
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const modeToggle = document.getElementById("modeToggle");
