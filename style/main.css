@@ -1,77 +1,397 @@
-/* 페이지 컨테이너 */
+#game-sys .main-carousel .carousel-item::before {
+  pointer-events: none !important;
+  background: none !important;
+}
 #game-sys {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #f4f4f4;
+  width: 100%;
+  text-align: center;
+  background-color: black;
+  margin-bottom: 50px;
 }
-
-.game-thumbnail {
-    width: 150px;  
-    height: 200px; 
-    object-fit: cover; 
+.game-title {
+  color: white !important;
+  margin-top: 0.5rem;
+  text-align: center;
 }
-.carousel {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 .game-card {
-width: 18%;  
-text-align: center;
+  flex: 0 0 calc((100% - 40px) / 5);
+  max-width: calc((100% - 40px) / 5);
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 20px; /* 네 모서리를 둥글게 */
+  margin-bottom: 20px; /* 세로 간격 */
 }
-/* 드롭 영역 스타일 */
-.drop-zone {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    margin-top: 20px;
-    min-height: 150px;
-    text-align: center;
-    transition: background-color 0.3s, border-color 0.3s;
+.game-card a {
+  color: white !important;
+  text-decoration: none;
 }
-  
-/* 드래그 오버 시 드롭 영역 강조 */
+.game-card:hover {
+  cursor: pointer;
+}
+.game-thumbnail {
+  width: 100% !important;
+  height: 400px !important;
+  object-fit: cover !important;
+  border-radius: 20px !important;
+  transition: transform 1s ease !important;
+}
+
+.game-thumbnail:hover {
+  transform: scale(1.05);
+}
+.game-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.drop-zone-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .drop-zone-active {
-border-color: #007bff;
-background-color: #e9ecef;
+  border-color: #007bff;
+  background-color: #e9ecef;
 }
+.drop-box {
+  width: 380px;
+  height: 480px;
+  border: 2px dashed #aaa;
+  box-sizing: border-box;
+  overflow: auto;
+}
+/* 추천 버튼 클릭 시 중앙 정렬 해제 (왼쪽 정렬) */
+.drop-box.not-centered {
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.drop-box .game-card,
+.drop-box .game-thumbnail {
+  width: 90% !important;
+  height: 95% !important;
+  max-width: 90% !important;
+  max-height: 95% !important;
+  margin: auto;
+  display: block;
+}
+.custom-button {
+  background-color: #fa3278;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+.custom-button:hover {
+  background-color: pink;
+}
+.second-section.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.main-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 100%;
+}
+.main-carousel-inner {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+.main-carousel-item {
+  flex: 0 0 100%;
+  display: none;
+  position: relative;
+}
+.main-carousel-item.active {
+  display: flex;
+}
+
+/* Prev & Next 버튼 디자인 */
+.main-carousel-control {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.main-carousel-control:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.main-carousel-control.prev {
+  left: 10px;
+}
+.main-carousel-control.next {
+  right: 10px;
+}
+
+.recommend-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem 0;
+  background-color: black;
+  box-sizing: border-box;
+  text-align: left;
+}
+.recommend-text {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  color: #fff;
+
+  text-transform: uppercase;
+  opacity: 0;
+  position: relative;
+  z-index: 10;
+}
+.recommend-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+#game-grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.flip-card {
+  perspective: 1000px;
+  height: 400px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+  background-color: rgba(109, 109, 109, 0.6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+}
+.back-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flip-card-back p {
+  margin: 10px 0;
+}
+.flip-card-back .game-rating i {
+  font-size: 1.5rem;
+  color: gold;
+  margin-right: 0.5rem;
+}
+.front-link,
+.back-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+#grid-reset-btn {
+  min-width: 120px;
+  display: inline-block;
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .recommend-section {
+    margin-left: 0;
+  }
+  .second-section {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .drop-box {
+    margin-right: 0;
+  }
+}
+@media (max-width: 768px) {
+  .game-thumbnail {
+    width: 300px !important;
+    max-width: 300px !important;
+    height: 350px !important;
+  }
+  .main-carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 480px) {
+  .game-thumbnail {
+    width: 250px !important;
+    max-width: 250px !important;
+    height: 300px !important;
+  }
+  .main-carousel-control {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  .recommend-section {
+    padding: 1rem 0.5rem;
+  }
+  .recommend-text {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+}
+
+/* 여기 */
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0 10%;
-}
-
-.main-banner {
-  display: flex;
-  height: 50vh;
-  margin-top: 1rem;
-}
-
-.main-banner__banner-img-area {
-  width: 70%;
-  height: 100%;
-  img {
+  #div-container {
     width: 100%;
-    height: 100%;
-    border-radius: 20px;
   }
 }
 
+.main-navigation-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 1%;
+}
+
+/* 메인 배너 */
+.main-banner {
+  display: flex;
+  height: 60vh;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+/* 배너 이미지 영역 */
+.main-banner__banner-img-area {
+  width: 70%;
+  height: 100%;
+  box-shadow: 0 8px 16px rgba(128, 128, 128, 0.8);
+  div {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    p {
+      font-size: 3rem;
+    }
+  }
+}
+
+/* 오른쪽 사이드 영역 */
 .main-banner__sub-area {
   width: 30%;
   height: 100%;
+  margin-left: 2%;
   .main-banner__sub-area__item {
     display: flex;
     align-items: center;
     padding: 2rem 1rem;
     height: 20%;
+    border-radius: 20px;
+    &:hover {
+      background-color: #28282c;
+      transition: 0.3s ease-in-out;
+      color: var(--pink-color);
+    }
+    img {
+      border-radius: 10px;
+    }
+
+    span {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
+  .clicked {
+    transform: scale(1.4);
+    transition: transform 0.3s ease-in-out;
+  }
+
   img {
     width: 15%;
     aspect-ratio: 1.5/2;
     margin-right: 2%;
+  }
+}
+
+.focus {
+  background-color: #28282c;
+  color: var(--pink-color);
+  transition: 0.3s ease-in-out;
+}
+
+.search-result {
+  gap: 10px;
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    margin: 5% 5%;
+    &:hover {
+      scale: 1.1;
+      transition: 0.3s ease-in-out;
+      border-radius: 20px;
+    }
   }
 }
