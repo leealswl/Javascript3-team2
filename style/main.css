@@ -1,3 +1,7 @@
+footer {
+  width: 100%;
+}
+
 #game-sys .main-carousel .carousel-item::before {
   pointer-events: none !important;
   background: none !important;
@@ -397,16 +401,12 @@
   }
 }
 
-
 .input {
   border: none;
   border-radius: 20px;
   padding: 10px;
-  margin: 10px
-  
-  
+  margin: 10px;
 }
-.fa-solid{
-  color: #FF69B4;
-
+.fa-solid {
+  color: #ff69b4;
 }
