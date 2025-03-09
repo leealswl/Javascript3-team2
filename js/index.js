@@ -14,6 +14,19 @@ const indexApi = async () => {
         console.error(error);
     }
 };
+document.getElementById("loginBtn").addEventListener("click", function() {
+    window.location.href = "login.html";
+});
+document.getElementById("loginBtn").addEventListener("click", function() {
+    window.location.href = "login.html";
+});
+
+let loginBtn = document.getElementById('loginBtn');
+
+    loginBtn.addEventListener('click', () => {
+      
+      loginBtn.classList.toggle('clicked');
+    });
 
 const popularApi = async(limit) => {
     try {
