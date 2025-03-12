@@ -1,5 +1,8 @@
 AOS.init();
+
 const API_KEY1 = `537786cf19164215ba386fb47bd70c9c`;
+
+
 let gameList = [];
 
 const callAPIRelease = async () => {
@@ -476,4 +479,5 @@ const getSearchGames = async (event) => {
   // document.getElementById("game-sys").innerHTML = "";
   // document.getElementById("drag-zone").innerHTML = "";
   document.getElementById("for-delete").innerHTML = "";
+  document.querySelector(".footer-container").innerHTML = "";
 };
